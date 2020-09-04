@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,4 +10,50 @@
     <script src='src/fetchadapter.js'></script>
     <script src='src/index.js'></script>
 </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>X marks the spot</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <!-- <script src="./src/index.js"></script> -->
+    <link rel="stylesheet" href="styles/app.css">
+    <script src='src/fetchadapter.js'></script>
+    <script src='src/index.js'></script>
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Open+Sans" rel="stylesheet" />
+  </head>
+  <body>
+    <div class='main flex'>
+      <h1 class='padding margin'>X marks the spot</h1>
+
+      <div class="margin flex">
+        <h4 class='center'>Search A Currency</h4>
+        <form id='dog-form' class="padding margin border-round border-grey">
+          <input type="text" name="name" placeholder="dog's name" value="" />
+          <input type="text" name="breed" placeholder="dog's breed" value="" />
+          <input type="text" name="sex" placeholder="dog's sex" value="" />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+
+      <div class="margin flex">
+        <h4 class='center'>All Currencies</h4>
+        <table class='margin' border="1">
+          <thead class='blue'>
+            <tr class='padding'>
+              <th class='padding center'>Symbol</th>
+              <th class='padding center'>name</th>
+              <th class='padding center'>price</th>
+              <th class='padding center'>Buy/Sell</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
 </html>

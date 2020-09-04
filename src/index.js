@@ -15,7 +15,10 @@ function render (rates){
     // const {cad,hkd} = rates
     // console.log(cad,hkd)
     numbers=Object.entries(rates)
-    console.log(numbers)
+    // console.log(numbers)
+    numbers.forEach(price => {
+        console.log(price)
+    })
     // for (const rate in rates){
     //     // console.log(rate)
     //     need=Object.entries(rate)
