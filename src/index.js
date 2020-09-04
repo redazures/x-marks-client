@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const fetchadapter = new FetchAdapter(baseUrl)
     const action = currencies => (render(currencies.rates))
          //console.log(currencies.rates))
-    fetchadapter.get('latest',action)
+    fetchadapter.get('latest?base=USD',action)
 
 });
 
