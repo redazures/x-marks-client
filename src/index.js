@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function renderRealApi(rates) {
-        rates.forEach(value => renderRealCurrency(value))
+        renderRealCurrency(rates)
     }
 
     function renderRealCurrency(value) {
@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         row.dataset.id = value.id
             
             row.innerHTML =`
-            <td>${value}</td>
-            <td>${value}</td>
+            <td>${value[0]}</td>
+            <td>${value[1]}</td>
             <td><button>Edit</button> <button>Delete</button></td>
             `
             table.append(row)
