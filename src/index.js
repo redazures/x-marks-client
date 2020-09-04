@@ -3,9 +3,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const baseUrl = 'https://api.exchangeratesapi.io/'
     const railsAPI = 'http://localhost:3000/currencies'
     const table = document.getElementById('table-body')
-    
 
-    
     const fetchadapter = new FetchAdapter(baseUrl)
     const action = currencies => (render(currencies.rates))
          //console.log(currencies.rates))
@@ -16,16 +14,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         fetch(railsAPI)
             .then(response => response.json())
             .then(data => renderCurrencies(data))
-
-    }
+    }//getcurrencies
 
     getCurrencies()
-
     function render (rates){
-        // console.log(rates)
-        // const {cad,hkd} = rates
-        // console.log(cad,hkd)
         numbers=Object.entries(rates)
+
         // console.log(numbers)
         numbers.forEach(price => renderRealApi(price))
         // for (const rate in rates){
@@ -63,9 +57,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
                   `
                   table.append(row)
             }
+
             
-            function renderCurrencies(currencies) {
-                currencies.forEach(currency => renderCurrency(currency))
-            }
+    function renderCurrencies(currencies) {
+        currencies.forEach(currency => renderCurrency(currency))
+    }
 });
 
+function renderCurrentPrice(price){
+    // console.log(price)
+        const actual =["Canadian Dollars","Hong Kong Dollars","Icelandic Krona","Philipino Peso","Danish Krone",]
+        const table = document.getElementById('table-body')
+        const row = document.createElement('tr')
+
+        row.innerHTML =`
+        <td class='api-names'>${actual[0]}</td>
+        <td>${price[0]}</td>
+        <td>${price[1]}</td>
+        <td><button>Edit</button>
+        <button>Delete</button></td>
+        `
+        table.append(row)
+        // const names = document.querySelectorAll('.api-names')
+        // for(name of names){name.innerContent="x"}
+
+}
