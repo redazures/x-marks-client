@@ -11,8 +11,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 function render (rates){
-    console.log(rates[0])
+    console.log(rates)
+    // const {cad,hkd} = rates
+    // console.log(cad,hkd)
+    numbers=Object.entries(rates)
+    console.log(numbers)
     // for (const rate in rates){
-    //     console.log(rate)
+    //     // console.log(rate)
+    //     need=Object.entries(rate)
+    //     console.log(need)
     // }
 }
