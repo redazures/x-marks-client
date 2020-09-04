@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             row.innerHTML =`
             <td>${value[0]}</td>
             <td>${value[1]}</td>
-            <td><button>Edit</button> <button>Delete</button></td>
+            <td><button>Buy</button> <button>Sell</button></td>
             `
             table.append(row)
     }
