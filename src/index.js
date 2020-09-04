@@ -19,24 +19,45 @@ document.addEventListener('DOMContentLoaded', (event) => {
     getCurrencies()
     function render (rates){
         numbers=Object.entries(rates)
-        numbers.forEach(price => {renderCurrentPrice(price)
-            // price.forEach(arr => console.log(arr))
-        })
+
+        // console.log(numbers)
+        numbers.forEach(price => renderRealApi(price))
+        // for (const rate in rates){
+        //     // console.log(rate)
+        //     need=Object.entries(rate)
+        //     console.log(need)
+        // }
+        
     }
 
-    function renderCurrency(currency) {
+    function renderRealApi(rates) {
+        renderRealCurrency(rates)
+    }
+
+    function renderRealCurrency(value) {
         const row = document.createElement('tr')
-            row.dataset.id = currency.id
-    
+        row.dataset.id = value.id
+            
             row.innerHTML =`
-            <td>${currency.name}</td>
-            <td>${currency.symbol}</td>
-            <td>${currency.price/100}</td>
-            <td><button>Edit</button></td> 
-            <td><button>Delete</button></td>
+            <td>${value[0]}</td>
+            <td>${value[1]}</td>
+            <td><button>Buy</button> <button>Sell</button></td>
             `
             table.append(row)
     }
+
+            function renderCurrency(currency) {
+                const row = document.createElement('tr')
+                  row.dataset.id = currency.id
+            
+                  row.innerHTML =`
+                  <td>${currency.symbol}</td>
+                  <td>${currency.price}</td>
+                  <td><button>Edit</button> <button>Delete</button></td>
+                  `
+                  table.append(row)
+            }
+
             
     function renderCurrencies(currencies) {
         currencies.forEach(currency => renderCurrency(currency))
