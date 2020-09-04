@@ -29,7 +29,7 @@
     <div class='main flex'>
       <h1 class='padding margin'>X marks the spot</h1>
 
-      <div class="margin flex">
+      <!-- <div class="margin flex">
         <h4 class='center'>Search A Currency</h4>
         <form id='dog-form' class="padding margin border-round border-grey">
           <input type="text" name="name" placeholder="dog's name" value="" />
@@ -37,9 +37,9 @@
           <input type="text" name="sex" placeholder="dog's sex" value="" />
           <input type="submit" value="Submit" />
         </form>
-      </div>
+      </div> -->
 
-      <div class="margin flex">
+      <!-- <div class="margin flex">
         <h4 class='center'>All Currencies</h4>
         <table class='margin' border="1">
           <thead class='blue'>
@@ -52,7 +52,53 @@
           </thead>
           <tbody id="table-body">
           </tbody>
-        </table>
+        </table> -->
+
+        <div class="container">
+          <div class="row">
+             <div class="col-3">
+                <div class="panel-body">
+                   <p>Popular Currencies</p>
+                </div>
+             </div>
+             
+             <div class="offset-md-1">
+             <div class="row">
+               <div class="center">
+                <h4>All Currencies</h4>
+                <table class='margin' border="1">
+                  <thead class='blue'>
+                    <tr class='padding'>
+                      <th class='padding center'>Symbol</th>
+                      <th class='padding center'>name</th>
+                      <th class='padding center'>price</th>
+                      <th class='padding center'>Buy/Sell</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-body">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+            <div class="offset-md-3">
+              <div class="panel-body">
+                 <p>Current Balance</p>
+              </div>
+           </div>
+       </div>
+       <!-- Row 3 -->
+       <div class="container">
+          <div class="row">
+             <div class="offset-md-10">
+                <div class="panel-body">
+                   <p>Recent Transactions</p>
+                </div>
+             </div>
+          </div>
+       </div>
+
       </div>
     </div>
   </body>
