@@ -27,9 +27,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // console.log(cad,hkd)
         numbers=Object.entries(rates)
         // console.log(numbers)
-        numbers.forEach(price => {
-            price.forEach(arr => console.log(arr))
-        })
+        numbers.forEach(price => renderRealApi(price))
         // for (const rate in rates){
         //     // console.log(rate)
         //     need=Object.entries(rate)
@@ -37,12 +35,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // }
         
     }
+
+    function renderRealApi(rates) {
+        rates.forEach(value => renderRealCurrency(value))
+    }
+
+    function renderRealCurrency(value) {
+        const row = document.createElement('tr')
+        row.dataset.id = value.id
+            
+            row.innerHTML =`
+            <td>${value}</td>
+            <td>${value}</td>
+            <td><button>Edit</button> <button>Delete</button></td>
+            `
+            table.append(row)
+    }
+
             function renderCurrency(currency) {
                 const row = document.createElement('tr')
                   row.dataset.id = currency.id
             
                   row.innerHTML =`
-                  <td>${currency.name}</td>
                   <td>${currency.symbol}</td>
                   <td>${currency.price}</td>
                   <td><button>Edit</button> <button>Delete</button></td>
