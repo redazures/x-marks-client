@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             <td>${currency.name}</td>
             <td>${currency.symbol}</td>
             <td>${currency.price/100}</td>
-            <td><button>Edit</button> <button>Delete</button></td>
+            <td><button>Edit</button></td> 
+            <td><button>Delete</button></td>
             `
             table.append(row)
     }
