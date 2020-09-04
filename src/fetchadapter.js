@@ -5,10 +5,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 class FetchAdapter{
     constructor(baseUrl){
-        this.baseUrl
+        this.baseUrl=baseUrl
     }
 
-    get(relativeurl){
-        console.log(this.baseUrl, relativeurl)
-    }
+    get(relativeurl, callback){
+        // console.log(this.baseUrl, relativeurl)
+        fetch(`${this.baseUrl}${relativeurl}`)
+        .then(resp=>resp.json())
+        // .then(console.log)
+        .then(callback)
+        }
 }

@@ -1,9 +1,18 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
-    const baseurl = 'http://localhost:3000/currencies'
+    const baseUrl = 'https://api.exchangeratesapi.io/'
+
     
-    const fetchadapter = new FetchAdapter('http://localhost:3000/currencies')
-    
-    fetchadapter.get('currencies')
+    const fetchadapter = new FetchAdapter(baseUrl)
+    const action = currencies => (render(currencies.rates))
+         //console.log(currencies.rates))
+    fetchadapter.get('latest',action)
+
 });
 
+function render (rates){
+    console.log(rates[0])
+    // for (const rate in rates){
+    //     console.log(rate)
+    // }
+}
