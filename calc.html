@@ -6,13 +6,41 @@
     <title>Currency Converter</title>
     <script src="https://kit.fontawesome.com/a4cb4a26ad.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/sytle.css">
+    <link rel="stylesheet" href="styles/form.css">
+    <style>
+        body {
+            padding: 25px;
+        }
+    </style>
 </head>
     <div class="container">
         <div class="header">
             <h1>Currency Converter</h1>
         </div>
         <div class="date">Welcome to X Marks: 2020-9-4</div>
+
+        <script src="src/form.js"></script>   
+        
         <ul class="currencies">
+            <li class='formLi'id="formLi">
+                <button onclick="show_hide()" type="button" id="formButton">Form</button><br>
+            
+                <form class="form" id="form1" class="form" action="./" method="#">
+                    <div class="form-group">
+                        <label for="currencyTrade" class="form_label">Currency</label>
+                        <input type="text" class="form_input form_input--error" name="currencyTrade" id="currencyTrade" placeholder="Traded Currency">
+                        <span class="form_error">Invalid Currency</span>
+                    </div>
+                    <div class='form-group'>
+                        <label for="unitsTrade" class="form_label">Units</label>
+                        <input type="text" class="form_input form_input--error" name="unitsTrade" id="unitsTrade" placeholder="Amount of units">
+                        <span class="form_error">Invalid Unit Price</span>
+                    </div>
+                    <div class="formSubmit">
+                        <button type="button" id="submit">Submit</button>
+                    </div>
+                </form>
+            </li>
             <li class='currency base-currency'id="USD">
                 <img src="https://images-na.ssl-images-amazon.com/images/I/71pY5Ee5F8L._AC_SL1500_.jpg" alt="USD" class="flag" width="100px">
                 <div class='info'>
@@ -122,7 +150,8 @@
         </ul>
         
     </div>
-<body>
- <script src="src/main.js"></script>   
+    <body>
+        <script src="src/main.js"></script>
+        
 </body>
 </html>

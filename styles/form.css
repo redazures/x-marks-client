@@ -1,0 +1,73 @@
+.form {
+   font-family: 'montserrat', sans-serif;
+   font-size: 16px;
+}
+
+.form * {
+   box-sizing: border-box;
+   line-height: 1.5;
+}
+
+.form-group {
+   display: flex;
+   flex-direction: column;
+}
+
+.form-group > * {
+   align-self: flex-start;
+}
+
+.form_label {
+   font-weight: bold;
+   padding: 10px 0px;
+}
+
+.form_input {
+   -webkit-appearance: none;
+   width: 50%;
+   max-width: 250px;
+
+   padding: 0.8em;
+   font-size: 0.9em;
+
+   font-family: 'montserrat', sans-serif;
+
+   outline: none;
+   border: 1px solid #ddd;
+   border-radius: 4px;
+
+   transition: background 0.25s, border-color 0.25s color 0.25s;
+
+}
+
+.form_input {
+   background-color: #ffffff;
+}
+
+.form_input::placeholder {
+   color: #bbbbbb;
+}
+
+.form_input--error {
+   color: #d50000;
+   background: #fff8f8;
+   border-color: #d50000;
+}
+
+.form_input--error::placeholder {
+   color: #ffbfbf;
+}
+
+.form_error {
+   padding-top: 10px;
+   color: #d50000;
+   font-size: 0.9em;
+   visibility: hidden;
+}
+
+.form_input--error + .form_error {
+   visibility: visible;
+}
+
+
+

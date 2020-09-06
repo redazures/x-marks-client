@@ -52,4 +52,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             table.append(row)
     }// this is the end of render currency
 
+    
+
 });
