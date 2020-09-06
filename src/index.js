@@ -4,9 +4,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const railsAPI = 'http://localhost:3000/currencies'
 
     const table = document.getElementById('table-body')
-
-    const fetchadapter = new FetchAdapter(baseUrl)
-    // const action = currencies => (render(currencies.rates)) // is just rendering currencies, you cannot see the API
+    const Apifetchadapter = new ApiFetchAdapter(baseUrl)
+    const action = currencies => (render(currencies.rates)) // is just rendering currencies, you cannot see the API
     // fetchadapter.get('latest?base=USD',action)
 
     getCurrencies()

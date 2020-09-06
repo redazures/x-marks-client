@@ -1,6 +1,6 @@
 .main {
    height: 100vh;
-   font-family: 'Open Sans', sans-serif;
+   font-family: 'oxygen', sans-serif;
   }
   
   .flex {
@@ -10,7 +10,7 @@
   }
   
   h1, h2, h3, h4 {
-   font-family: 'Kaushan Script', cursive;
+   font-family: 'montserrat', sans-serif;
    margin-bottom: 0px;
   }
   

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     console.log('I am fetching ready');
 });
 
-class FetchAdapter{
+class ApiFetchAdapter{
     constructor(baseUrl){
         this.baseUrl=baseUrl
     }
@@ -15,4 +15,8 @@ class FetchAdapter{
         // .then(console.log)
         .then(callback)
         }
+}// This is the end of the Api Fetch Adapter
+
+class RailsFetchAdapter{
+
 }
