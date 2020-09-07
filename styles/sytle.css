@@ -12,8 +12,13 @@ html{
 
 body {
     font-family: 'montserrat', sans-serif;
-    background-color: #505562;
-    color: #fff;
+    /* background-color: #505562; */
+    color: #edf5e1;
+    /* background: '.xfiles/back.jpg'; */
+    background: url('xfiles/back2.jpg');
+    background-repeat: no-repeat;
+    /* background-size: auto; */
+    background-size: cover;
 }
 
 .container{
@@ -25,7 +30,7 @@ body {
 }
 
 .header{
-    background-color: #2d2d37;
+    background-color: #05386b;
     text-align: center;
     padding: 1.75rem;
 }
@@ -35,21 +40,47 @@ body {
 }
 
 .date {
-    background-color: #222;
-    text-align: right;
-    font-size: .75rem;
-    padding: .75rem 2rem .75rem 0;
+    background-color: #5cdb95;
+    color: #edf5e1;
+    padding: 1rem;
+    font-size:1.2rem;
+    font-weight:bold;
+    border:none;
+    /* border-top:3px solid #379683; */
+    outline:none;
+    width:100%;
+    cursor:pointer;
+    transition: background-color 0.25s;
+    position: relative;
+}
+
+.date:hover{
+    background-color: #d9534f;
+}
+
+.date i{
+    position: absolute;
+    top:.6rem;
+    right:30%;
+    font-size:2rem;
+    opacity:0;
+    transition: all 0.25s;
+}
+
+.date:hover i{
+    opacity: 1;
+    right:1.25rem;
 }
 
 ul.currencies{
     height: calc(100vh - 40px - 100px - 40px - 58px);
-    background-color: #222;
+    background-color: #379683;
     padding: 0 1.5rem 1rem 1.5rem;
     overflow-y: auto;
 }
 
 ul.currencies li{
-    background-color: #2d2d37;
+    background-color: #05386b;
     border-radius:5px;
     list-style: none;
     padding: 1rem 1rem 0.75rem 1rem;
@@ -83,16 +114,16 @@ ul.currencies li.base-currency{
     text-align:center
 }
 
-.info .input input{
+/* .info .input input{
     font-size: 1.5rem;
     width:78%;
     background-color:transparent;
-    border: 2px solid #fff;
+    border: 2px solid #edf5e1;
     border-radius:5px;
-    color:#fff;
+    color:#edf5e1;
     padding:0.3rem;
     margin-bottom: 0.75rem;
-}
+} */
 
 ul.currencies li .close{
     position: absolute;
@@ -104,7 +135,7 @@ ul.currencies li .close{
     cursor: pointer;
 }
 
-ul.currencies li .close.open{
+ul.currencies li .close:hover{
     color: red;
 }
 
@@ -114,18 +145,18 @@ ul.currencies::-webkit-scrollbar{
 }
 
 ul.currencies::-webkit-thumb{
-    blackground-color: #2d2d37;
-    border-bottom: 1rem solid#222;
+    blackground-color: #05386b;
+    border-bottom: 1rem solid#379683;
 }
 
 ul.add-currency-list{
     position:absolute;
     bottom: 54px;
     left: 105%;
-    background-color: #f1f1f1;
-    color: #333;
+    background-color: #edf5e1;
+    color: black;
     width: 100%;
-    height: calc(100vh - 40px - 100px - 55px);;
+    height: calc(100vh - 26px - 100px - 55px);
     overflow-y: auto;
     transition: all 0.25s;
 }
@@ -133,7 +164,7 @@ ul.add-currency-list{
 ul.add-currency-list li{
     list-style: none;
     padding: 0.75rem;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #edf5e1;
 }
 
 ul.add-currency-list .disabled{
@@ -153,13 +184,13 @@ ul.add-currency-list li span{
 }
 
 .add-currency-btn{
-    background-color: #00b386;
-    color: #fff;
+    background-color: #5cdb95;
+    color: #edf5e1;
     padding: 1rem;
     font-size:1.2rem;
     font-weight:bold;
     border:none;
-    border-top:3px solid #222;
+    border-top:3px solid #379683;
     outline:none;
     width:100%;
     cursor:pointer;
@@ -176,6 +207,23 @@ ul.add-currency-list li span{
     transition: all 0.25s;
 }
 
+.add-currency-btn:hover{
+    background-color: #d9534f;
+}
+
+.add-currency-btn:hover i{
+    opacity: 1;
+    left:1.25rem;
+}
+
+.add-currency-btn:hover + ul.add-currency-list{
+    left: 0;
+}
+
+.add-currency-btn:hover + ul.add-currency-list li:hover{
+    background-color: #edf5e1;
+}
+
 .add-currency-btn.open{
     background-color: #d9534f;
 }
@@ -190,5 +238,43 @@ ul.add-currency-list li span{
 }
 
 .add-currency-btn.open + ul.add-currency-list li:hover{
-    background-color: #ddd;
+    background-color: #edf5e1;
+}
+
+.forms {
+    position: absolute;
+    bottom:0;
+    left:0;
+    background: url('xfiles/signup.jpg');
+    background-repeat: no-repeat;
+    background-size: auto;
+    /* background-color: #edf5e1; */
+    color: black;
+    width: 100%;
+    height: calc(100vh - 26px - 100px - 40px - 58px + 54px);
+    left:0;
+}
+
+.forms input{
+    padding:0.100rem;
+    /* border-bottom:1px solid  #edf5e1; */
+    position: absolute;
+    left: 40%;
+    width: 50%;
+}
+
+.forms label{
+    padding:0.100rem;
+    /* border-bottom:1px solid  #edf5e1; */
+    position: absolute;
+    left: 5%;
+    width: 50%;
+}
+
+.forms p{
+    padding:0.100rem;
+    /* border-bottom:1px solid  #edf5e1; */
+    position: absolute;
+    left: 5%;
+    width: 50%;
 }
