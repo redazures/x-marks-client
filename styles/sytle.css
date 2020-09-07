@@ -252,7 +252,7 @@ ul.add-currency-list li span{
     color: black;
     width: 100%;
     height: calc(100vh - 26px - 100px - 40px - 58px + 54px);
-    left:0;
+    left:500px;
 }
 
 .forms input{
@@ -269,6 +269,7 @@ ul.add-currency-list li span{
     position: absolute;
     left: 5%;
     width: 50%;
+    font-weight: bold;
 }
 
 .forms p{
@@ -277,4 +278,9 @@ ul.add-currency-list li span{
     position: absolute;
     left: 5%;
     width: 50%;
+    font-weight: bold;
+}
+
+.date:hover + .forms{
+    left:0%;
 }
