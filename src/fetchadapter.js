@@ -18,5 +18,15 @@ class ApiFetchAdapter{
 }// This is the end of the Api Fetch Adapter
 
 class RailsFetchAdapter{
+    constructor(baseUrl){
+        this.baseUrl=baseUrl
+    }
 
+    get(relativeurl, callback){
+        // console.log(this.baseUrl, relativeurl)
+        fetch(`${this.baseUrl}${relativeurl}`)
+        .then(resp=>resp.json())
+        // .then(console.log)
+        .then(callback)
+        }
 }
