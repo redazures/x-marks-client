@@ -180,7 +180,7 @@ ul.add-currency-list{
     bottom: 54px;
     left: 105%;
     background-color: #edf5e1;
-    color: black;
+    color: #5cdB95;
     width: 100%;
     height: calc(100vh - 26px - 100px - 55px);
     overflow-y: auto;
@@ -207,6 +207,11 @@ ul.add-currency-list .flag{
 ul.add-currency-list li span{
     margin-left: 1rem;
     font-weight: bold;
+}
+
+ul.add-currency-list li span i{
+    position: absolute;
+    right:0;
 }
 
 .add-currency-btn{

@@ -31,7 +31,7 @@ function renderCurrency(currency) {//this render curreceny for the initial batch
   const li = document.createElement('li')
   li.dataset.currency=currency.symbol
   li.dataset.id=currency.id
-  li.innerHTML=`<img src="https://freeiconshop.com/wp-content/uploads/edd/plus-flat.png" class="flag"><span>${currency.symbol}-${currency.name}</span>`
+  li.innerHTML=`<img src="https://freeiconshop.com/wp-content/uploads/edd/plus-flat.png" class="flag"><span>${currency.symbol}-${currency.name}<i class="fas fa-money-bill-alt">Buy</i></span>`
   allList.appendChild(li)
   // console.log(list)
   }
