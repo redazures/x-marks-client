@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('Trying a calculator')
-    const railsAPI = 'http://localhost:3000/currencies'
+    const railsAPI = 'http://localhost:3000/currencies/'
     // const Apifetchadapter = new RailsFetchAdapter(railsAPI)
     // const action = currencies => (console.log(currencies.rates))
     addButton()
@@ -178,49 +178,60 @@ function disable(){//console.log("I am seeing where the disable should begin")
 
 function clickHandler() {
   document.addEventListener('click', (e) => {
-    console.log('e.target')
+    // console.log(e.target)
+
     if (e.target.matches('.buy')) {
       console.log("you are in buy")
       const button = e.target
+      
       const buysCurrency = button.previousElementSibling.childNodes[1].childNodes[0].textContent
       const buys = button.previousElementSibling.childNodes[1].childNodes[1]
       const currentBuys = parseInt(buys.textContent)
       const updateBuys = currentBuys + 1000
       buys.textContent = updateBuys
       const id = button.parentElement.dataset.currency_id
+      const name = button.previousElementSibling.childNodes[3].textContent
+      const symbol = button.previousElementSibling.childNodes[1].childNodes[0].textContent
+      const price = updateBuys
 
-      console.log(buysCurrency, buys.textContent, id.textContent)
+      console.log(buysCurrency, buys.textContent, id)
+      console.log(name, symbol, price)
 
       if (buys.textContent) {
         button.nextElementSibling.className = "sell"
-        console.log(button)
+        // console.log(button)
       } else if (buys.textContent !== "0") {
         console.log("You can Sell")
         button.nextElementSibling.className = "sell"
-
-        // const options = {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "Accepts": "application/json"
-        //   },
-        //   body: JSON.stringify({ price: buys.textContent})
-        // }
+        
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accepts": "application/json"
+          },
+          body: JSON.stringify({name: name, symbol: symbol, price: price})
+        }
     
-        // fetch(railsAPI + id, options)
-        //   .then((response) => response.json())
-        //   .then(console.log)
+        fetch(railsAPI + id, options)
+          .then((response) => response.json())
+          .then(console.log)
       }
     }
     else if (e.target.matches(`.sell`)) {
       const button = e.target
+      
       const sellCurrency = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[0].textContent
       const sells = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[1]
       const currentSells = parseInt(sells.textContent)
       const updateSells = currentSells - 1000
       const id = button.parentElement.dataset.currency_id
+      const name = button.previousElementSibling.previousElementSibling.childNodes[3].textContent
+      const symbol = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[0].textContent
+      const price = updateSells
 
       console.log(sellCurrency, sells.textContent, id)
+      console.log(name, symbol, price)
       
       if (sells.textContent <= "0") {
         alert("You have none to sell")
@@ -230,18 +241,19 @@ function clickHandler() {
         console.log("Go ahead and Sell")
         sells.textContent = updateSells
         button.className = ("sell")
-        // const options = {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "Accepts": "application/json"
-        //   },
-        //   body: JSON.stringify({ price: sells.textContent})
-        // }
+
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accepts": "application/json"
+          },
+          body: JSON.stringify({name: name, symbol: symbol, price: price})
+        }
     
-        // fetch(railsAPI + id, options)
-        //   .then((response) => response.json())
-        //   .then(console.log)
+        fetch(railsAPI + id, options)
+          .then((response) => response.json())
+          .then(console.log)
       }
     }
   })
