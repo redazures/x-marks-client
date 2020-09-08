@@ -8,10 +8,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     signup()
     // populate()
     getCurrencies(railsAPI)
+    clickHandler()
     // const list=getlist()
     // debugger
     // console.log(list)
 })
+
 
 function todaysDate() {
   let today = new Date().toLocaleDateString()
@@ -168,8 +170,22 @@ function disable(){//console.log("I am seeing where the disable should begin")
   const current = document.querySelector('.add-currency-list').querySelectorAll('li')
   // current.length
   for (item of current){//console.log(item.dataset.currency)
-    if(list.includes(item.dataset.currency)){item.className="disabled";console.log(item)}
+    if(list.includes(item.dataset.currency)){item.className="disabled";}
   }//this is the end of my for loop
   // console.log(list)
   // if(list.includes(li.dataset.currency)){li.className="disabled"}
 }
+
+function clickHandler() {
+  document.addEventListener('click', (e) => {
+    if (e.target.matches('.buy')) {
+      console.log(e.target)
+
+    }
+    else if (e.target.matches(`.sell`)) {
+      console.log(e.target)
+    }
+  })
+}
+
+
