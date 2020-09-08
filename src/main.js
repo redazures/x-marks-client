@@ -186,21 +186,29 @@ function clickHandler() {
       const updateBuys = currentBuys + 1000
       buys.textContent = updateBuys
       const id = button.parentElement.dataset.currency_id
-      
+
       console.log(buysCurrency, buys.textContent, id.textContent)
 
-      // const options = {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Accepts": "application/json"
-      //   },
-      //   body: JSON.stringify({ price: updateBuys})
-      // }
-  
-      // fetch(railsAPI + id, options)
-      //   .then((response) => response.json())
-      //   .then(console.log)
+      if (buys.textContent) {
+        button.nextElementSibling.className = "sell"
+        console.log(button)
+      } else if (buys.textContent !== "0") {
+        console.log("You can Sell")
+        button.nextElementSibling.className = "sell"
+
+        // const options = {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "Accepts": "application/json"
+        //   },
+        //   body: JSON.stringify({ price: buys.textContent})
+        // }
+    
+        // fetch(railsAPI + id, options)
+        //   .then((response) => response.json())
+        //   .then(console.log)
+      }
     }
     else if (e.target.matches(`.sell`)) {
       const button = e.target
@@ -211,20 +219,28 @@ function clickHandler() {
       sells.textContent = updateSells
       const id = button.parentElement.dataset.currency_id
 
-      console.log(sellCurrency, sells.textContent, id.textContent)
-
-      // const options = {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Accepts": "application/json"
-      //   },
-      //   body: JSON.stringify({ price: updateBuys})
-      // }
-  
-      // fetch(railsAPI + id, options)
-      //   .then((response) => response.json())
-      //   .then(console.log)
+      console.log(sellCurrency, sells.textContent, id)
+      
+      if (sells.textContent === "0") {
+        alert
+        console.log(button)
+        button.className = ("disabled")
+      } else if (sells.textContent !== "0") {
+        console.log("Go ahead and Sell")
+        button.className = ("sell")
+        // const options = {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "Accepts": "application/json"
+        //   },
+        //   body: JSON.stringify({ price: sells.textContent})
+        // }
+    
+        // fetch(railsAPI + id, options)
+        //   .then((response) => response.json())
+        //   .then(console.log)
+      }
     }
   })
 }
