@@ -3,11 +3,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const railsAPI = 'http://localhost:3000/currencies'
     // const Apifetchadapter = new RailsFetchAdapter(railsAPI)
     // const action = currencies => (console.log(currencies.rates))
-    getCurrencies(railsAPI)
     addButton()
     login()
     signup()
     // populate()
+    getCurrencies(railsAPI)
+    // const list=getlist()
+    // debugger
+    // console.log(list)
 })
 
 function todaysDate() {
@@ -30,6 +33,7 @@ function renderCurrency(currency) {//this render curreceny for the initial batch
   li.dataset.id=currency.id
   li.innerHTML=`<img src="https://freeiconshop.com/wp-content/uploads/edd/plus-flat.png" class="flag"><span>${currency.symbol}-${currency.name}</span>`
   allList.appendChild(li)
+  // console.log(list)
   }
 }// this is the end of render currency
 
@@ -110,15 +114,6 @@ function signup(){
   })//This is the end of my signup event
 }//Ths is the end of my login
 
-function unique(arr, keyProps) {
-  const kvArray = arr.map(entry => {
-   const key = keyProps.map(k => entry[k]).join('|');
-   return [key, entry];
-  });
-  const map = new Map(kvArray);
-  return Array.from(map.values());
- }
-
 function populate (id){
   console.log("start looking for txns")
   fetch('http://localhost:3000/members/'+id)
@@ -165,4 +160,10 @@ function getlist(){
     array.push(item.id)
   }
   return array
+}
+
+function disable(){
+  const list=getlist()
+  console.log(list)
+  // if(list.includes(li.dataset.currency)){li.className="disabled"}
 }
