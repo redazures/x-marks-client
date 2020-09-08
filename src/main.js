@@ -178,7 +178,9 @@ function disable(){//console.log("I am seeing where the disable should begin")
 
 function clickHandler() {
   document.addEventListener('click', (e) => {
+    console.log('e.target')
     if (e.target.matches('.buy')) {
+      console.log("you are in buy")
       const button = e.target
       const buysCurrency = button.previousElementSibling.childNodes[1].childNodes[0].textContent
       const buys = button.previousElementSibling.childNodes[1].childNodes[1]
@@ -216,17 +218,17 @@ function clickHandler() {
       const sells = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[1]
       const currentSells = parseInt(sells.textContent)
       const updateSells = currentSells - 1000
-      sells.textContent = updateSells
       const id = button.parentElement.dataset.currency_id
 
       console.log(sellCurrency, sells.textContent, id)
       
-      if (sells.textContent === "0") {
-        alert
-        console.log(button)
-        button.className = ("disabled")
-      } else if (sells.textContent !== "0") {
+      if (sells.textContent <= "0") {
+        alert("You have none to sell")
+        // console.log(button)
+        // button.className = ("disabled")
+      } else if (sells.textContent >= "0") {
         console.log("Go ahead and Sell")
+        sells.textContent = updateSells
         button.className = ("sell")
         // const options = {
         //   method: "POST",
