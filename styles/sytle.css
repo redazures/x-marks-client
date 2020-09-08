@@ -273,7 +273,7 @@ ul.add-currency-list li span{
     left:0;
     background: url('xfiles/signup.jpg');
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: cover;
     /* background-color: #edf5e1; */
     color: black;
     width: 100%;
