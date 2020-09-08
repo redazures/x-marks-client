@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     addButton()
     login()
     signup()
+    // populate()
 })
 
 function getCurrencies(api) {
@@ -53,22 +54,22 @@ function login(){
   })//This is the end of my addButton
 }//Ths is the end of my login
 
+//These two varaibles are used for login and signup
+const move = document.querySelectorAll('.forms')
+const date = document.querySelector('.date')
 
 function login(){
   const log = document.querySelector('.login')
   log.addEventListener('submit',(e)=>{//console.log("login")
     e.preventDefault()
-    const member=log.name.value
-    console.log(member)
+    const name=log.name.value; console.log(name)
     fetch('http://localhost:3000/members')
     .then(res=>res.json())
     .then(users=>users.forEach(user=>{
-      if(user.name==member){
-        const move = document.querySelectorAll('.forms')
-        const date = document.querySelector('.date')
+      if(user.name==name){
         date.dataset.id = user.id
         move[0].style.left='-100%'
-        console.log(user.id)
+        populate(date.dataset.id)
         }
       }//end of if statement inside the fetch function 
     ))//end of the last then statement 
@@ -98,11 +99,51 @@ function signup(){
       }).then(res=>res.json())
       .then(user=>{
         console.log(user)
-        const move = document.querySelectorAll('.forms')
-        const date = document.querySelector('.date')
         date.dataset.id = user.id
         move[0].style.left='-100%'
         })//this should be the end of fetch
   })//This is the end of my signup event
 }//Ths is the end of my login
+
+function unique(arr, keyProps) {
+  const kvArray = arr.map(entry => {
+   const key = keyProps.map(k => entry[k]).join('|');
+   return [key, entry];
+  });
+  const map = new Map(kvArray);
+  return Array.from(map.values());
+ }
+
+function populate (id){
+  console.log("start looking for txns")
+  fetch('http://localhost:3000/members/'+id)
+    .then(res=>res.json())
+    .then(user=>{
+      console.log(user.transactions, user.currencies)
+      if (user.currencies.length>=1){
+        console.log("i am dead inside")
+        user.currencies.forEach(currency=>displayBox(currency,user.transactions))
+      }
+    })
+}
+
+function displayBox(currency,txns){
+  console.log(txns)
+  const display= document.querySelector('.currencies')
+  const li = document.createElement('li')
+  display.appendChild(li)
+  let quantity = 0
+  
+  li.className='currency'
+  li.id=currency.id
+  li.innerHTML=`<img src="https://cdn.britannica.com/91/1791-004-1998D4C6/Flag-Japan.jpg" alt="JPY" class="flag" width="100px">
+  <div class='info'>
+      <p class="input"><span class="currency-symbol">${currency.symbol}</span><span class="quantity" width='80%'>1,000,000.00</span></p>
+      <p class='currency-name'>${currency.name}</p>
+      <p class='base-currency-rate'>Price<span>  ${currency.price}</span></p>
+  </div>
+  <span class='buy'>Buy <i class="fas fa-money-bill-alt"></i></span>
+  <span class='sell'>Sell <i class="fas fa-cash-register"></i></span>
+  `
+}
 

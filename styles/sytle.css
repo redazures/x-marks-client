@@ -111,12 +111,24 @@ ul.currencies li.base-currency{
     font-size: 1.5rem;
     display: inline-block;
     width: 4rem;
-    text-align:center
+    text-align:center;
+}
+
+.info .input .balance{
+    font-size: 1rem;
+    width:55%;
+    background-color:transparent;
+    border: 2px solid #edf5e1;
+    border-radius:5px;
+    color:#edf5e1;
+    padding:0.3rem;
+    margin-bottom: 0.50rem;
+    text-align:right;
 }
 
 /* .info .input input{
     font-size: 1.5rem;
-    width:78%;
+    width:55%;
     background-color:transparent;
     border: 2px solid #edf5e1;
     border-radius:5px;
