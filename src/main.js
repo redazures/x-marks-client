@@ -133,16 +133,14 @@ function displayBox(currency,txns){
   const li = document.createElement('li')
   display.appendChild(li)
   let quantity = 0
-  // txns.forEach(txn=>{
-  //   // console.log(txn.currency_id==currency.id)
-  //   if (txn.currency_id==currency.id){quantity+=txn.quantity}
-  // })
+  txns.forEach(txn=>{// console.log(txn.currency_id==currency.id)
+    if (txn.currency_id==currency.id){quantity+=txn.quantity}})
   console.log(quantity)
   li.className='currency'
   li.id=currency.id
   li.innerHTML=`<img src="https://cdn.britannica.com/91/1791-004-1998D4C6/Flag-Japan.jpg" alt="JPY" class="flag" width="100px">
   <div class='info'>
-      <p class="input"><span class="currency-symbol">U${currency.symbol}</span><span class="balance" width='80%'>${quantity}</span></p>
+      <p class="input"><span class="currency-symbol">${currency.symbol}</span><span class="balance" width='80%'>${quantity}</span></p>
       <p class='currency-name'>${currency.name}</p>
       <p class='base-currency-rate'>Price<span>  ${currency.price}</span></p>
   </div>
