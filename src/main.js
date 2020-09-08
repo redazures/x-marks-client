@@ -186,10 +186,11 @@ function clickHandler() {
       const updateBuys = currentBuys + 1000
       buys.textContent = updateBuys
       const id = button.parentElement.dataset.currency_id
+      
       console.log(buysCurrency, buys.textContent, id.textContent)
 
       // const options = {
-      //   method: "PATCH",
+      //   method: "POST",
       //   headers: {
       //     "Content-Type": "application/json",
       //     "Accepts": "application/json"
@@ -209,7 +210,21 @@ function clickHandler() {
       const updateSells = currentSells - 1000
       sells.textContent = updateSells
       const id = button.parentElement.dataset.currency_id
+
       console.log(sellCurrency, sells.textContent, id.textContent)
+
+      // const options = {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Accepts": "application/json"
+      //   },
+      //   body: JSON.stringify({ price: updateBuys})
+      // }
+  
+      // fetch(railsAPI + id, options)
+      //   .then((response) => response.json())
+      //   .then(console.log)
     }
   })
 }
