@@ -24,8 +24,8 @@ function getCurrencies(api) {
     .then(string=>string.forEach(currency => renderCurrency(currency)))
 }//getcurrencies
 
-function renderCurrency(currency) {//this render curreceny for the initial batch from the system 
-  //console.log(currency)
+function renderCurrency(currency) {//this render curreceny for the initial batch from the system; console.log(currency)
+  console.log("This is render currency")
   if (currency.symbol!="USD"){
   const allList = document.querySelector('.add-currency-list')
   const li = document.createElement('li')
@@ -123,6 +123,7 @@ function populate (id){
       if (user.currencies.length>=1){
         console.log("i am dead inside")
         user.currencies.forEach(currency=>displayBox(currency,user.transactions))
+        disable()
       }
     })
 }
@@ -162,8 +163,13 @@ function getlist(){
   return array
 }
 
-function disable(){
+function disable(){//console.log("I am seeing where the disable should begin")
   const list=getlist()
-  console.log(list)
+  const current = document.querySelector('.add-currency-list').querySelectorAll('li')
+  // current.length
+  for (item of current){//console.log(item.dataset.currency)
+    if(list.includes(item.dataset.currency)){item.className="disabled";console.log(item)}
+  }//this is the end of my for loop
+  // console.log(list)
   // if(list.includes(li.dataset.currency)){li.className="disabled"}
 }
