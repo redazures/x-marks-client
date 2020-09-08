@@ -77,9 +77,32 @@ function login(){
 
 function signup(){
   const signup = document.querySelector('.signup')
-  signup.addEventListener('submit',(e)=>{//console.log("signup")
+  signup.addEventListener('submit',(e)=>{console.log("signup")
     e.preventDefault()
-    
+    console.log(signup.name.value, signup.email.value, signup.age.value, signup.creditcard.value)
+    faker={
+      name:signup.name.value, 
+      email:signup.email.value, 
+      age: signup.age.value, 
+      creditcard: signup.creditcard.value
+    }
+    fetch('http://localhost:3000/members',{
+      method: "POST",
+      headers: {
+      "Content-type": "application/json",
+      "accept": "application/json"
+      },
+      body: JSON.stringify(
+        faker
+      )
+      }).then(res=>res.json())
+      .then(user=>{
+        console.log(user)
+        const move = document.querySelectorAll('.forms')
+        const date = document.querySelector('.date')
+        date.dataset.id = user.id
+        move[0].style.left='-100%'
+        })//this should be the end of fetch
   })//This is the end of my signup event
 }//Ths is the end of my login
 

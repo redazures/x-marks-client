@@ -125,17 +125,31 @@ ul.currencies li.base-currency{
     margin-bottom: 0.75rem;
 } */
 
-ul.currencies li .close{
+ul.currencies li .buy{
     position: absolute;
     top: 0;
     right: 0;
     padding: 0 0.5rem;
     font-size: 1.5rem;
-    color: #666;
+    color: #edf5e1;
     cursor: pointer;
 }
 
-ul.currencies li .close:hover{
+ul.currencies li .buy:hover{
+    color: green;
+}
+
+ul.currencies li .sell{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 0.5rem;
+    font-size: 1.5rem;
+    color: #edf5e1;
+    cursor: pointer;
+}
+
+ul.currencies li .sell:hover{
     color: red;
 }
 
