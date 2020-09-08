@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // populate()
 })
 
+function todaysDate() {
+  let today = new Date().toLocaleDateString()
+  return today
+}
+
 function getCurrencies(api) {
     fetch(api)
     .then(response => response.json())
