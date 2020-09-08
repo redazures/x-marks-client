@@ -127,9 +127,10 @@ function populate (id){
     })
 }
 
-function displayBox(currency,txns){
-  console.log(txns)
+function displayBox(currency,txns){ //console.log(txns)//console.log(list.includes(currency.symbol))
   const display= document.querySelector('.currencies')
+  const list = getlist()
+  if(!list.includes(currency.symbol)){
   const li = document.createElement('li')
   display.appendChild(li)
   let quantity = 0
@@ -137,7 +138,8 @@ function displayBox(currency,txns){
     if (txn.currency_id==currency.id){quantity+=txn.quantity}})
   console.log(quantity)
   li.className='currency'
-  li.id=currency.id
+  li.id=currency.symbol
+  li.dataset.currency_id=currency.id
   li.innerHTML=`<img src="https://cdn.britannica.com/91/1791-004-1998D4C6/Flag-Japan.jpg" alt="JPY" class="flag" width="100px">
   <div class='info'>
       <p class="input"><span class="currency-symbol">${currency.symbol}</span><span class="balance" width='80%'>${quantity}</span></p>
@@ -147,5 +149,15 @@ function displayBox(currency,txns){
   <span class='buy'>Buy <i class="fas fa-money-bill-alt"></i></span>
   <span class='sell'>Sell <i class="fas fa-cash-register"></i></span>
   `
-}
+  }//The end of my if
+}//The end of display box
 
+function getlist(){
+  array=[]
+  const display= document.querySelector('.currencies')
+  let list = display.querySelectorAll('li')
+  for(item of list){// console.log(item)
+    array.push(item.id)
+  }
+  return array
+}
