@@ -12,7 +12,11 @@
         <div class="header">
             <h1>X-Marks-the-Spot</h1>
         </div>
-        <button class="date">2020-9-4 <i class="fas fa-sign-out-alt"></i></button>
+        <button class="date"><span id="datetime"></span><i class="fas fa-sign-out-alt"></i></button>
+        <script>
+            var dt = new Date();
+            document.getElementById("datetime").innerHTML = dt.toLocaleDateString();
+        </script>
         <!-- <div class="date">Welcome to X Marks: 2020-9-4</div> -->
         <ul class="currencies">
             <li class='currency base-currency'id="USD">
