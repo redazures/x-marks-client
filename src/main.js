@@ -179,11 +179,37 @@ function disable(){//console.log("I am seeing where the disable should begin")
 function clickHandler() {
   document.addEventListener('click', (e) => {
     if (e.target.matches('.buy')) {
-      console.log(e.target)
+      const button = e.target
+      const buysCurrency = button.previousElementSibling.childNodes[1].childNodes[0].textContent
+      const buys = button.previousElementSibling.childNodes[1].childNodes[1]
+      const currentBuys = parseInt(buys.textContent)
+      const updateBuys = currentBuys + 1000
+      buys.textContent = updateBuys
+      const id = button.parentElement.dataset.currency_id
+      console.log(buysCurrency, buys.textContent, id.textContent)
 
+      // const options = {
+      //   method: "PATCH",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Accepts": "application/json"
+      //   },
+      //   body: JSON.stringify({ price: updateBuys})
+      // }
+  
+      // fetch(railsAPI + id, options)
+      //   .then((response) => response.json())
+      //   .then(console.log)
     }
     else if (e.target.matches(`.sell`)) {
-      console.log(e.target)
+      const button = e.target
+      const sellCurrency = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[0].textContent
+      const sells = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[1]
+      const currentSells = parseInt(sells.textContent)
+      const updateSells = currentSells - 1000
+      sells.textContent = updateSells
+      const id = button.parentElement.dataset.currency_id
+      console.log(sellCurrency, sells.textContent, id.textContent)
     }
   })
 }
