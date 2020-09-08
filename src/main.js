@@ -229,9 +229,10 @@ function clickHandler() {
       const name = button.previousElementSibling.previousElementSibling.childNodes[3].textContent
       const symbol = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[0].textContent
       const price = updateSells
+      
 
       console.log(sellCurrency, sells.textContent, id)
-      console.log(name, symbol, price)
+      console.log(price, parseInt(date.dataset.id), parseInt(id), Date.now())
       
       if (sells.textContent <= "0") {
         alert("You have none to sell")
@@ -242,18 +243,18 @@ function clickHandler() {
         sells.textContent = updateSells
         button.className = ("sell")
 
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accepts": "application/json"
-          },
-          body: JSON.stringify({name: name, symbol: symbol, price: price})
-        }
+        // const options = {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "Accepts": "application/json"
+        //   },
+        //   body: JSON.stringify({price: price, member_id: parseInt(date.dataset.id), currency_id: parseInt(id), serial: Date.now(), quantity: -1000})
+        // }
     
-        fetch(railsAPI + id, options)
-          .then((response) => response.json())
-          .then(console.log)
+        // fetch(railsAPI + id, options)
+        //   .then((response) => response.json())
+        //   .then(console.log)
       }
     }
   })
