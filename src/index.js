@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const Apifetchadapter = new ApiFetchAdapter(baseUrl)
     const action = currencies => (render(currencies.rates)) // is just rendering currencies, you cannot see the API
     // fetchadapter.get('latest?base=USD',action)
-
+    
     getCurrencies()
 
     function getCurrencies() {

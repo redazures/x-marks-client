@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // const list=getlist()
     // debugger
     // console.log(list)
+    // getPrices()
 })
 
 
@@ -23,7 +24,11 @@ function todaysDate() {
 function getCurrencies(api) {
     fetch(api)
     .then(response => response.json())
-    .then(string=>string.forEach(currency => renderCurrency(currency)))
+    .then(string=>string.forEach(currency => {
+          renderCurrency(currency)
+          }//end of the functions inside the brackets 
+        )//end of the last 
+      )//end of the last then
 }//getcurrencies
 
 function renderCurrency(currency) {//this render curreceny for the initial batch from the system; console.log(currency)
@@ -33,12 +38,11 @@ function renderCurrency(currency) {//this render curreceny for the initial batch
   const li = document.createElement('li')
   li.dataset.currency=currency.symbol
   li.dataset.id=currency.id
-  li.innerHTML=`<img src="https://freeiconshop.com/wp-content/uploads/edd/plus-flat.png" class="flag"><span>${currency.symbol}-${currency.name}<i class="fas fa-money-bill-alt">Buy</i></span>`
+  li.innerHTML=`<img src="https://freeiconshop.com/wp-content/uploads/edd/plus-flat.png" class="flag"><span class='iso'>${currency.symbol}-${currency.name}<span class="price" data-id='${currency.id}' data-currency='${currency.name}' data-symbol='${currency.symbol}'>Price</span></span>`
   allList.appendChild(li)
   // console.log(list)
   }
 }// this is the end of render currency
-
 
 function addButton(){
   const add = document.querySelector('.add-currency-btn')
@@ -52,25 +56,13 @@ function addButton(){
   })//This is the end of my addButton
 }//this is the end of my button
 
-function login(){
-  const log = document.querySelector('.login')
-  log.addEventListener('click',(e)=>{
-    e.preventDefault()
-    console.log("you are at login")
-    if (add.className=="add-currency-btn"){//console.log("changed to open")
-      add.className="add-currency-btn open"
-    } else{//console.log("changed to closed")
-      add.className="add-currency-btn"
-    }
-  })//This is the end of my addButton
-}//Ths is the end of my login
-
 //These two varaibles are used for login and signup
 const move = document.querySelectorAll('.forms')
 const date = document.querySelector('.date')
 
 function login(){
   const log = document.querySelector('.login')
+  const add = document.querySelector('.add-currency-btn')
   log.addEventListener('submit',(e)=>{//console.log("login")
     e.preventDefault()
     const name=log.name.value; console.log(name)
@@ -81,6 +73,7 @@ function login(){
         date.dataset.id = user.id
         move[0].style.left='-100%'
         populate(date.dataset.id)
+        getPrices()
         }
       }//end of if statement inside the fetch function 
     ))//end of the last then statement 
@@ -112,6 +105,7 @@ function signup(){
         console.log(user)
         date.dataset.id = user.id
         move[0].style.left='-100%'
+        populate(date.dataset.id )
         })//this should be the end of fetch
   })//This is the end of my signup event
 }//Ths is the end of my login
@@ -125,6 +119,11 @@ function populate (id){
       if (user.currencies.length>=1){
         console.log("i am dead inside")
         user.currencies.forEach(currency=>displayBox(currency,user.transactions))
+        user.transactions.forEach(txn=>{
+          const bal = parseInt(document.querySelector('.balance').innerText)
+          const newBal = (txn.quantity/txn.price) + bal
+          document.querySelector('.balance').innerText = newBal
+        })//end of my transaction
         disable()
       }
     })
@@ -138,8 +137,8 @@ function displayBox(currency,txns){ //console.log(txns)//console.log(list.includ
   display.appendChild(li)
   let quantity = 0
   txns.forEach(txn=>{// console.log(txn.currency_id==currency.id)
-    if (txn.currency_id==currency.id){quantity+=txn.quantity}})
-  console.log(quantity)
+    if (txn.currency_id==currency.id){quantity+=txn.quantity}
+  }) // console.log(quantity)
   li.className='currency'
   li.id=currency.symbol
   li.dataset.currency_id=currency.id
@@ -147,7 +146,7 @@ function displayBox(currency,txns){ //console.log(txns)//console.log(list.includ
   <div class='info'>
       <p class="input"><span class="currency-symbol">${currency.symbol}</span><span class="balance" width='80%'>${quantity}</span></p>
       <p class='currency-name'>${currency.name}</p>
-      <p class='base-currency-rate'>Price<span>  ${currency.price}</span></p>
+      <p class='base-currency-rate'>Price   <span class='price' data-id='${currency.id}' data-symbol='${currency.symbol}'>${currency.price.toFixed(6)}</span></p>
   </div>
   <span class='buy'>Buy <i class="fas fa-money-bill-alt"></i></span>
   <span class='sell'>Sell <i class="fas fa-cash-register"></i></span>
@@ -179,7 +178,6 @@ function disable(){//console.log("I am seeing where the disable should begin")
 function clickHandler() {
   document.addEventListener('click', (e) => {
     // console.log(e.target)
-
     if (e.target.matches('.buy')) {
       console.log("you are in buy")
       const button = e.target
@@ -265,4 +263,30 @@ function clickHandler() {
   })
 }
 
-
+function getPrices(){
+  console.log("prices working")
+  fetch('https://api.exchangeratesapi.io/latest?base=USD')
+  .then(res=>res.json())
+  .then(string=>{ // console.log(string.rates["CAD"])
+    const rates = string.rates
+    const list = document.querySelector('.add-currency-list').querySelectorAll('.price')
+    for (price of list){//console.log(price.dataset.symbol)
+      const sym = price.dataset.symbol
+      const id = price.dataset.id
+      price.innerText=rates[sym]
+      // console.log(id,sym,rates[sym])
+      price.innerText = rates[sym].toFixed(6)
+      //updating the currencies
+        // fetch(`http://localhost:3000/currencies/${id}`, {
+        // method: "PATCH",
+        // headers: {
+        //   "Content-type": "application/json",
+        //   "accept": "application/json"
+        // },
+        //   body: JSON.stringify({
+        //   price: price.innerText
+        // })
+        // })//this is the end of my update currencies
+    }//end of my for loop
+  })//end of my fetch
+}//end of my getprices

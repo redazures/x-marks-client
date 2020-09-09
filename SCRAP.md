@@ -34,3 +34,16 @@ class FetchAdapter{
         .then(callback)
         }
 }
+
+function login(){
+  const log = document.querySelector('.login')
+  log.addEventListener('click',(e)=>{
+    e.preventDefault()
+    console.log("you are at login")
+    if (add.className=="add-currency-btn"){//console.log("changed to open")
+      add.className="add-currency-btn open"
+    } else{//console.log("changed to closed")
+      add.className="add-currency-btn"
+    }
+  })//This is the end of my addButton
+}//Ths is the end of my login
