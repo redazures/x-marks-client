@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('Trying a calculator')
-    const railsAPI = 'http://localhost:3000/currencies'
+    const railsAPI = 'http://localhost:3000/currencies/'
     // const Apifetchadapter = new RailsFetchAdapter(railsAPI)
     // const action = currencies => (console.log(currencies.rates))
     addButton()
@@ -176,71 +176,89 @@ function disable(){//console.log("I am seeing where the disable should begin")
 }
 
 function clickHandler() {
-  document.addEventListener('click', (e) => {//console.log('e.target')
+  document.addEventListener('click', (e) => {
+    // console.log(e.target)
     if (e.target.matches('.buy')) {
       console.log("you are in buy")
       const button = e.target
+      
       const buysCurrency = button.previousElementSibling.childNodes[1].childNodes[0].textContent
       const buys = button.previousElementSibling.childNodes[1].childNodes[1]
+      console.log(button.parentElement)
       const currentBuys = parseInt(buys.textContent)
-      const updateBuys = currentBuys + 1000
-      buys.textContent = updateBuys
       const id = button.parentElement.dataset.currency_id
+      const name = button.previousElementSibling.childNodes[3].textContent
+      const symbol = button.previousElementSibling.childNodes[1].childNodes[0].textContent
+      const price = parseInt(button.parentElement.querySelector('.base-currency-rate').querySelector('span').innerText)
 
-      console.log(buysCurrency, buys.textContent, id.textContent)
 
-      if (buys.textContent) {
-        button.nextElementSibling.className = "sell"
-        console.log(button)
-      } else if (buys.textContent !== "0") {
-        console.log("You can Sell")
-        button.nextElementSibling.className = "sell"
+      // console.log(buysCurrency, buys.textContent, id)
+      // console.log(price, parseInt(date.dataset.id), parseInt(id), Date.now())
 
-        // const options = {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "Accepts": "application/json"
-        //   },
-        //   body: JSON.stringify({ price: buys.textContent})
-        // }
-    
-        // fetch(railsAPI + id, options)
-        //   .then((response) => response.json())
-        //   .then(console.log)
-      }
+      // if (buys.textContent) {
+      //   // console.log(button)
+      // } else if (buys.textContent !== "0") {
+      //   console.log("You can Sell")
+      //   button.nextElementSibling.className = "sell"
+        
+      // }
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accepts": "application/json"
+            },
+            body: JSON.stringify({price: price, member_id: parseInt(date.dataset.id), currency_id: parseInt(id), serial: 1234567, quantity: 1000})
+          }
+      
+          fetch('http://localhost:3000/transactions/', options)
+            .then((response) => response.json())
+            .then(string => {
+              const updateBuys = currentBuys + string.quantity
+              buys.textContent = updateBuys
+            })
     }
     else if (e.target.matches(`.sell`)) {
       const button = e.target
+      
       const sellCurrency = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[0].textContent
       const sells = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[1]
       const currentSells = parseInt(sells.textContent)
       const updateSells = currentSells - 1000
       const id = button.parentElement.dataset.currency_id
-
-      console.log(sellCurrency, sells.textContent, id)
+      const name = button.previousElementSibling.previousElementSibling.childNodes[3].textContent
+      const symbol = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[0].textContent
+      const price = parseInt(button.parentElement.querySelector('.base-currency-rate').querySelector('span').innerText)
       
-      if (sells.textContent <= "0") {
-        alert("You have none to sell")
-        // console.log(button)
-        // button.className = ("disabled")
-      } else if (sells.textContent >= "0") {
-        console.log("Go ahead and Sell")
-        sells.textContent = updateSells
-        button.className = ("sell")
-        // const options = {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "Accepts": "application/json"
-        //   },
-        //   body: JSON.stringify({ price: sells.textContent})
-        // }
-    
-        // fetch(railsAPI + id, options)
-        //   .then((response) => response.json())
-        //   .then(console.log)
-      }
+
+      // console.log(sellCurrency, sells.textContent, id)
+      // console.log(price, parseInt(date.dataset.id), parseInt(id), Date.now())
+      
+      // if (sells.textContent <= "0") {
+      //   alert("You have none to sell")
+      //   // console.log(button)
+      //   // button.className = ("disabled")
+      // } else if (sells.textContent >= "0") {
+      //   console.log("Go ahead and Sell")
+      //   sells.textContent = updateSells
+      //   button.className = ("sell")
+
+      // }
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accepts": "application/json"
+            },
+            body: JSON.stringify({price: price, member_id: parseInt(date.dataset.id), currency_id: parseInt(id), serial:1234567, quantity: -1000})
+          }
+      
+          fetch('http://localhost:3000/transactions/', options)
+            .then((response) => response.json())
+            .then(string => {
+              const updateSells = currentSells + string.quantity
+              sells.textContent = updateSells
+            })
     }
   })
 }
