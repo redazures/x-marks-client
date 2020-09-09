@@ -74,6 +74,8 @@ function login(){
         move[0].style.left='-100%'
         populate(date.dataset.id)
         getPrices()
+        const welcomeMessage = document.querySelector('.usersname')
+        welcomeMessage.innerText = user.name
         }
       }//end of if statement inside the fetch function 
     ))//end of the last then statement 
