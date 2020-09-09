@@ -209,9 +209,9 @@ ul.add-currency-list li span{
     font-weight: bold;
 }
 
-ul.add-currency-list li span i{
+ul.add-currency-list li span span{
     position: absolute;
-    right:0;
+    right:1%;
 }
 
 .add-currency-btn{
