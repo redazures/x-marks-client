@@ -38,9 +38,13 @@ function renderCurrency(currency) {//this render curreceny for the initial batch
   const li = document.createElement('li')
   li.dataset.currency=currency.symbol
   li.dataset.id=currency.id
-  li.innerHTML=`<img src="https://freeiconshop.com/wp-content/uploads/edd/plus-flat.png" class="flag"><span class='iso'>${currency.symbol}-${currency.name}<span class="price" data-id='${currency.id}' data-currency='${currency.name}' data-symbol='${currency.symbol}'>Price</span></span>`
+  li.innerHTML=`<img src="${currency.image}" class="flag"><span class='iso'>${currency.symbol}-${currency.name}<span class="price" data-id='${currency.id}' data-currency='${currency.name}' data-symbol='${currency.symbol}'>Price</span></span>`
   allList.appendChild(li)
   // console.log(list)
+  li.addEventListener('click',(e)=>{ //console.log("waht what is two words")
+    displayBox(currency)
+    li.className= "disabled"
+  })//This is the end of of my event listener
   }
 }// this is the end of render currency
 
@@ -105,7 +109,8 @@ function signup(){
         console.log(user)
         date.dataset.id = user.id
         move[0].style.left='-100%'
-        populate(date.dataset.id )
+        populate(date.dataset.id)
+        getPrices()
         })//this should be the end of fetch
   })//This is the end of my signup event
 }//Ths is the end of my login
@@ -136,17 +141,18 @@ function displayBox(currency,txns){ //console.log(txns)//console.log(list.includ
   const li = document.createElement('li')
   display.appendChild(li)
   let quantity = 0
+  if (txns){
   txns.forEach(txn=>{// console.log(txn.currency_id==currency.id)
-    if (txn.currency_id==currency.id){quantity+=txn.quantity}
-  }) // console.log(quantity)
-  li.className='currency'
+    if (txn.currency_id==currency.id){quantity+=txn.quantity}}) // console.log(quantity)
+  }//If there are transactiosn do this
+    li.className='currency'
   li.id=currency.symbol
   li.dataset.currency_id=currency.id
-  li.innerHTML=`<img src="https://cdn.britannica.com/91/1791-004-1998D4C6/Flag-Japan.jpg" alt="JPY" class="flag" width="100px">
+  li.innerHTML=`<img src="${currency.image}" alt="JPY" class="flag" width="100px">
   <div class='info'>
       <p class="input"><span class="currency-symbol">${currency.symbol}</span><span class="balance" width='80%'>${quantity}</span></p>
       <p class='currency-name'>${currency.name}</p>
-      <p class='base-currency-rate'>Price   <span class='price' data-id='${currency.id}' data-symbol='${currency.symbol}'>${currency.price.toFixed(6)}</span></p>
+      <p class='base-currency-rate'>Price   <span class='price' data-id='${currency.id}' data-symbol='${currency.symbol}'>${currency.price}</span></p>
   </div>
   <span class='buy'>Buy <i class="fas fa-money-bill-alt"></i></span>
   <span class='sell'>Sell <i class="fas fa-cash-register"></i></span>
@@ -255,20 +261,18 @@ function getPrices(){
     for (price of list){//console.log(price.dataset.symbol)
       const sym = price.dataset.symbol
       const id = price.dataset.id
-      price.innerText=rates[sym]
+      price.innerText=rates[sym] // price.innerText = rates[sym].toFixed(6)
       // console.log(id,sym,rates[sym])
-      price.innerText = rates[sym].toFixed(6)
-      //updating the currencies
-        // fetch(`http://localhost:3000/currencies/${id}`, {
-        // method: "PATCH",
-        // headers: {
-        //   "Content-type": "application/json",
-        //   "accept": "application/json"
-        // },
-        //   body: JSON.stringify({
-        //   price: price.innerText
-        // })
-        // })//this is the end of my update currencies
+        fetch(`http://localhost:3000/currencies/${id}`, { // updating the currencies
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          "accept": "application/json"
+        },
+          body: JSON.stringify({
+          price: price.innerText
+        })
+        })//this is the end of my update currencies
     }//end of my for loop
   })//end of my fetch
 }//end of my getprices
