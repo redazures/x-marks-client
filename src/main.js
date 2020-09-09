@@ -242,7 +242,7 @@ function clickHandler() {
       const symbol = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[0].textContent
       const price = parseInt(button.parentElement.querySelector('.base-currency-rate').querySelector('span').innerText)
       
-
+w
       // console.log(sellCurrency, sells.textContent, id)
       // console.log(price, parseInt(date.dataset.id), parseInt(id), Date.now())
       
