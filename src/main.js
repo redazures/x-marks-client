@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     addButton()
     login()
     signup()
+    logout()
     // populate()
     getCurrencies(railsAPI)
     clickHandler()
@@ -111,6 +112,15 @@ function signup(){
         })//this should be the end of fetch
   })//This is the end of my signup event
 }//Ths is the end of my login
+
+// Logout Function
+
+function logout() {
+  const dateBtn = document.querySelector('.date')
+  dateBtn.addEventListener('click', e => {
+    location.reload();
+  })
+}
 
 function populate (id){
   console.log("start looking for txns")
