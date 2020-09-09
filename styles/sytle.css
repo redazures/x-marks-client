@@ -303,17 +303,30 @@ ul.add-currency-list li span span{
     left: 5%;
     width: 50%;
     font-weight: bold;
+    color:#edf5e1;
+}
+
+.forms input.submit-login:hover{
+    font-size:1rem;
+    color:#05386b;
+}
+
+.forms input.submit-signup:hover{
+    font-size:1rem;
+    color:#05386b;
 }
 
 .forms p{
     padding:0.100rem;
+    font-size: 2rem;
+    color: #edf5e1;
     /* border-bottom:1px solid  #edf5e1; */
     position: absolute;
     left: 5%;
-    width: 50%;
+    width: 100%;
     font-weight: bold;
 }
 
-.date:hover + .forms{
+/* .date:hover + .forms{
     left:0%;
-}
+} */
