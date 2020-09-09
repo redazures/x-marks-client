@@ -9,12 +9,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // populate()
     getCurrencies(railsAPI)
     clickHandler()
-    // const list=getlist()
     // debugger
-    // console.log(list)
     // getPrices()
 })
-
 
 function todaysDate() {
   let today = new Date().toLocaleDateString()
