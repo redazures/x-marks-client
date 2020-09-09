@@ -6,11 +6,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     addButton()
     login()
     signup()
-    // populate()
     getCurrencies(railsAPI)
     clickHandler()
-    // debugger
-    // getPrices()
 })
 
 function todaysDate() {
@@ -122,9 +119,7 @@ function populate (id){
         console.log("i am dead inside")
         user.currencies.forEach(currency=>displayBox(currency,user.transactions))
         user.transactions.forEach(txn=>{
-          const bal = parseInt(document.querySelector('.balance').innerText)
-          const newBal = (txn.quantity/txn.price) + bal
-          document.querySelector('.balance').innerText = newBal
+          updateBalance(txn.quantity,txn.price)
         })//end of my transaction
         disable()
       }
@@ -219,6 +214,7 @@ function clickHandler() {
             .then(string => {
               const updateBuys = currentBuys + string.quantity
               buys.textContent = updateBuys
+              updateBalance(string.quantity,string.price)
             })
     }
     else if (e.target.matches(`.sell`)) {
@@ -261,6 +257,7 @@ function clickHandler() {
             .then(string => {
               const updateSells = currentSells + string.quantity
               sells.textContent = updateSells
+              updateBalance(string.quantity,string.price)
             })
     }
   })
@@ -276,8 +273,9 @@ function getPrices(){
     for (price of list){//console.log(price.dataset.symbol)
       const sym = price.dataset.symbol
       const id = price.dataset.id
+      const newPrice = rates[sym] 
       price.innerText=rates[sym] // price.innerText = rates[sym].toFixed(6)
-      // console.log(id,sym,rates[sym])
+      // console.log(id,sym,newPrice)
         fetch(`http://localhost:3000/currencies/${id}`, { // updating the currencies
         method: "PATCH",
         headers: {
@@ -285,9 +283,19 @@ function getPrices(){
           "accept": "application/json"
         },
           body: JSON.stringify({
-          price: price.innerText
+          price: newPrice
         })
-        })//this is the end of my update currencies
+        }).then(resp=>resp.json())
+        .then(console.log("what"))
+        //this is the end of my update currencies
+        
+        
     }//end of my for loop
   })//end of my fetch
 }//end of my getprices
+
+function updateBalance(quantity,price){
+  const bal = parseInt(document.querySelector('.balance').innerText)
+  const newBal = (quantity/price) + bal
+  document.querySelector('.balance').innerText = newBal
+}
