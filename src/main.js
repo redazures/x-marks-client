@@ -286,10 +286,8 @@ function getPrices(){
           price: newPrice
         })
         }).then(resp=>resp.json())
-        .then(console.log("what"))
+        .then(string=>console.log(string))
         //this is the end of my update currencies
-        
-        
     }//end of my for loop
   })//end of my fetch
 }//end of my getprices
