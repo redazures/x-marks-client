@@ -119,6 +119,11 @@ function populate (id){
       if (user.currencies.length>=1){
         console.log("i am dead inside")
         user.currencies.forEach(currency=>displayBox(currency,user.transactions))
+        user.transactions.forEach(txn=>{
+          const bal = parseInt(document.querySelector('.balance').innerText)
+          const newBal = (txn.quantity/txn.price) + bal
+          document.querySelector('.balance').innerText = newBal
+        })//end of my transaction
         disable()
       }
     })
@@ -244,27 +249,26 @@ function getPrices(){
   console.log("prices working")
   fetch('https://api.exchangeratesapi.io/latest?base=USD')
   .then(res=>res.json())
-  .then(string=>{
-    console.log(string.rates["CAD"])
+  .then(string=>{ // console.log(string.rates["CAD"])
     const rates = string.rates
     const list = document.querySelector('.add-currency-list').querySelectorAll('.price')
     for (price of list){//console.log(price.dataset.symbol)
       const sym = price.dataset.symbol
       const id = price.dataset.id
       price.innerText=rates[sym]
-      console.log(id,sym,rates[sym])
+      // console.log(id,sym,rates[sym])
       price.innerText = rates[sym].toFixed(6)
       //updating the currencies
-        fetch(`http://localhost:3000/currencies/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-type": "application/json",
-          "accept": "application/json"
-        },
-          body: JSON.stringify({
-          price: price.innerText
-        })
-        })//this is the end of my update currencies
+        // fetch(`http://localhost:3000/currencies/${id}`, {
+        // method: "PATCH",
+        // headers: {
+        //   "Content-type": "application/json",
+        //   "accept": "application/json"
+        // },
+        //   body: JSON.stringify({
+        //   price: price.innerText
+        // })
+        // })//this is the end of my update currencies
     }//end of my for loop
   })//end of my fetch
 }//end of my getprices
