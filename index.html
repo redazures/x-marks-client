@@ -1,72 +1,58 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>X Marks</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-    <!-- <script src="./src/index.js"></script> -->
-    <link rel="stylesheet" href="styles/app.css">
-    <script src='src/fetchadapter.js'></script>
-    <script src='src/index.js'></script>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Open+Sans" rel="stylesheet" /> -->
-    <link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div class='main flex'>
-      <!-- <h1 class='padding margin'>X Marks The Spot</h1> -->
-        <div class="container">
-          <div class="row">
-             <div class="col-3">
-                <div class="panel-body">
-                   <!-- <p>Popular Currencies</p> -->
+    <script src="https://kit.fontawesome.com/a4cb4a26ad.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles/sytle.css">
+    <!-- <script src='src/fetchadapter.js'></script> -->
+</head>
+    <div class="container">
+        <div class="header">
+            <h1>X-Marks-the-Spot</h1>
+            <h4>Welcome <span class="username"></span></h4>
+        </div>
+        <button class="date"><span id="datetime"></span><i class="fas fa-sign-out-alt"></i></button>
+        <script>
+            var dt = new Date();
+            document.getElementById("datetime").innerHTML = dt.toLocaleDateString();
+        </script>
+        <!-- <div class="date">Welcome to X Marks: 2020-9-4</div> -->
+        <ul class="currencies">
+            <li class='currency base-currency'id="USD">
+                <img src="https://images-na.ssl-images-amazon.com/images/I/71pY5Ee5F8L._AC_SL1500_.jpg" alt="USD" class="flag" width="100px">
+                <div class='info'>
+                    <p class="input"><span class="currency-symbol">USD</span><span class="balance" width='80%'>0</span></p>
+                    <p class='currency-name'>Account Net USD value  <i class="fas fa-level-up-alt"></i></p>
+                    <p class='base-currency-rate'></p>
+                    <span class='account'><i id='account' class="far fa-user-circle"></i></span>
                 </div>
-             </div>
-             
-             <div class="offset-md-1">
-             <div class="row">
-               <div class="center">
-                <h1 class='padding margin'>X Marks The Spot</h1>
-                <h4>Available Currencies</h4>
-                <table class='margin' border="1">
-                  <thead class='table-header'>
-                    <tr class='padding'>
-                      <th class='padding center'>Name</th>
-                      <th class='padding center'>Symbol</th>
-                      <th class='padding center'>Price (USD)</th>
-                      <th class='padding center'>Buy</th>
-                      <th class='padding center'>Sell</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table-body">
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          
-            <div class="offset-md-3">
-              <div class="panel-body">
-                 <p>Current Balance</p>
-              </div>
-           </div>
-       </div>
-       <!-- Row 3 -->
-       Here is where the form 
-       <div class="container">
-         what about now
-          <div class="row">
-            okay, and this is where
-             <div class="offset-md-10">
-               this is here, i guess 
-                <div class="panel-body">
-                   <p>Recent Transactions</p>
-                </div>
-             </div>
-          </div>
-       </div>
-
-      </div>
+            </li>
+        </ul>
+        <button class="add-currency-btn" id="current"><i class="fas fa-angle-double-left"></i>Currency</button>
+        <ul class='add-currency-list'>
+        </ul>
+        <div class='forms'>
+            <form class='signup'>
+                <p>Please sign up </p><br><br><br>
+                <label class='tag'>Username</label><input type="text" id="name" name="name" required><br><br>
+                <label class='tag'>Email</label><input type="text" id="email" name="email" required><br><br>
+                <label class='tag'>Age</label><input type="number" id="age" name="age"required><br><br>
+                <label class='tag'>Credit Card Number</label><input type="number" id="creditcard" name="creditcard" required><br><br>
+                <input type='submit' class='submit-signup' value='Sign Up Now'><br><br><br>
+              </form>
+              <form class='login'>
+                <p>Or Login</p><br><br><br>
+                <label>Username</label><input type="text" id="name" name="name" required><br><br>
+                <input type='submit'class='submit-login' value='Login Now'><br><br><br>
+              </form>
+        </div>
+        <ul class='transactions-list'>
+        </ul>
     </div>
-  </body>
+<body>
+    <script src="src/fetchadapter.js"></script>
+    <script src="src/main.js"></script>   
+</body>
 </html>

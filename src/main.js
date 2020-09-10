@@ -1,32 +1,25 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('Trying a calculator')
     const railsAPI = 'http://localhost:3000/currencies/'
-    // const Apifetchadapter = new RailsFetchAdapter(railsAPI)
-    // const action = currencies => (console.log(currencies.rates))
+    
+    fetchCurrency.get('currencies',getcurrency)
+
     login()
     signup()
     logout()
-    getCurrencies(railsAPI)
+    // getCurrencies(railsAPI)
     clickHandler()
 })
+
+const fetchCurrency = new FetchAdapter("http://localhost:3000/") // see fetch adapter// this was fetch adapter was initiated with the base url
+const getcurrency = currencies => currencies.forEach(renderCurrency) //this is a call back function used to render currencies
 
 function todaysDate() {
   let today = new Date().toLocaleDateString()
   return today
 }
 
-function getCurrencies(api) {
-    fetch(api)
-    .then(response => response.json())
-    .then(string=>string.forEach(currency => {
-          renderCurrency(currency)
-          }//end of the functions inside the brackets 
-        )//end of the last 
-      )//end of the last then
-}//getcurrencies
-
-function renderCurrency(currency) {//this render curreceny for the initial batch from the system; console.log(currency)
-  console.log("This is render currency")
+function renderCurrency(currency) {//this render curreceny for the initial batch from the system; console.log(currency) //console.log("This is render currency")
   if (currency.symbol!="USD"){
   const allList = document.querySelector('.add-currency-list')
   const li = document.createElement('li')
@@ -56,7 +49,7 @@ function login(input){
     // console.log(name)
     fetch('http://localhost:3000/members')
     .then(res=>res.json())
-    .then(users=>users.forEach(user=>{
+    .then(currencies=>currencies.forEach(user=>{
       if(user.name==name){
         date.dataset.id = user.id
         move[0].style.left='-100%'
@@ -128,9 +121,7 @@ function displayBox(currency,txns){ //console.log(txns)//console.log(list.includ
   const li = document.createElement('li')
   display.appendChild(li)
   let quantity = 0
-  if (txns){
-  txns.forEach(txn=>{// console.log(txn.currency_id==currency.id)
-    if (txn.currency_id==currency.id){quantity+=txn.quantity}}) // console.log(quantity)
+  if (txns){txns.forEach(txn=>{if (txn.currency_id==currency.id){quantity+=txn.quantity}}) // console.log(quantity) // console.log(txn.currency_id==currency.id)
   }//If there are transactiosn do this
   li.className='currency'
   li.id=currency.symbol
