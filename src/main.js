@@ -130,12 +130,14 @@ function displayBox(currency,txns){ //console.log(txns)//console.log(list.includ
   <div class='info'>
       <p class="input"><span class="currency-symbol">${currency.symbol}</span><span class="balance" width='80%'>${quantity}</span></p>
       <p class='currency-name'>${currency.name}</p>
-      <p class='base-currency-rate'>Price   <span class='price' data-id='${currency.id}' data-symbol='${currency.symbol}'>${currency.price}</span></p>
+      <p class='base-currency-rate'>1 USD = <span class='price' data-id='${currency.id}' data-symbol='${currency.symbol}'>${currency.price}</span></p>
   </div>
   <span class='buy'>Buy <i id="buying" class="fas fa-money-bill-alt"></i></span>
   <span class='sell'>Sell <i id="selling" class="fas fa-cash-register"></i></span>
   `
+  if (quantity==0){display.removeChild(li)}
   }//The end of my if
+  
 }//The end of display box
 
 function getlist(){
