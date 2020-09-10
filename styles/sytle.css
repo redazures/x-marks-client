@@ -33,10 +33,13 @@ body {
     background-color: #05386b;
     text-align: center;
     padding: 1.75rem;
+    
 }
 
 .header h1 {
     font-size: 2.25rem;
+    border: 2px solid #edf5e1;
+    border-radius:5px;
 }
 
 .date {
@@ -147,7 +150,10 @@ ul.currencies li .account{
 }
 
 ul.currencies li .account:hover{
+    color: #8ee4af;
+}
 
+ul.currencies li .account span:hover{
     color: #8ee4af;
 }
 
@@ -333,11 +339,15 @@ ul.add-currency-list li span span{
 .forms p{
     padding:0.100rem;
     font-size: 2rem;
-    color: #edf5e1;
+    text-align: center;
+    color: #05386b;
+    background:#edf5e1;
+    border: 2px solid #05386b;
+    border-radius:5px;
     /* border-bottom:1px solid  #edf5e1; */
     position: absolute;
-    left: 5%;
-    width: 100%;
+    left: 4%;
+    width: 87%;
     font-weight: bold;
 }
 
