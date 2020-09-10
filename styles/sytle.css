@@ -126,16 +126,30 @@ ul.currencies li.base-currency{
     text-align:right;
 }
 
-/* .info .input input{
-    font-size: 1.5rem;
-    width:55%;
-    background-color:transparent;
-    border: 2px solid #edf5e1;
-    border-radius:5px;
-    color:#edf5e1;
-    padding:0.3rem;
-    margin-bottom: 0.75rem;
-} */
+ul.currencies li .txn{
+    position: absolute;
+    top: 15%;
+    right: 3%;
+    padding: 0 0.5rem;
+    font-size: .75rem;
+    color: #edf5e1;
+    cursor: pointer;
+}
+
+ul.currencies li .account{
+    position: absolute;
+    top: 15%;
+    right: 3%;
+    padding: 0 0.5rem;
+    font-size: 3rem;
+    color: #edf5e1;
+    cursor: pointer;
+}
+
+ul.currencies li .account:hover{
+
+    color: #8ee4af;
+}
 
 ul.currencies li .buy{
     position: absolute;
@@ -148,7 +162,7 @@ ul.currencies li .buy{
 }
 
 ul.currencies li .buy:hover{
-    color: green;
+    color: #5cdb95;
 }
 
 ul.currencies li .sell{
@@ -171,7 +185,7 @@ ul.currencies::-webkit-scrollbar{
 }
 
 ul.currencies::-webkit-thumb{
-    blackground-color: #05386b;
+    background-color: #05386b;
     border-bottom: 1rem solid#379683;
 }
 
@@ -327,6 +341,22 @@ ul.add-currency-list li span span{
     font-weight: bold;
 }
 
-/* .date:hover + .forms{
+/* .transaction-list {
+    position: absolute;
+    bottom:54%;
+    background-color: #edf5e1;
+    color: #191970;
+    width: 100%;
+    height: calc(100vh - 22px - 100px - 58px + 54px);
     left:0%;
+    bottom:0%;
+    overflow-y: auto;
+    transition: all 0.5s;
+    transition-timing-function: ease-in;
+}
+
+ul.transaction-list li{
+    list-style: none;
+    padding: 0.75rem;
+    border-bottom: 1px solid #edf5e1;
 } */
