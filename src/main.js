@@ -3,11 +3,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const railsAPI = 'http://localhost:3000/currencies/'
     // const Apifetchadapter = new RailsFetchAdapter(railsAPI)
     // const action = currencies => (console.log(currencies.rates))
-    addButton()
     login()
     signup()
     logout()
-    // populate()
     getCurrencies(railsAPI)
     clickHandler()
 })
@@ -34,7 +32,7 @@ function renderCurrency(currency) {//this render curreceny for the initial batch
   const li = document.createElement('li')
   li.dataset.currency=currency.symbol
   li.dataset.id=currency.id
-  li.innerHTML=`<img src="${currency.image}" class="flag"><span class='iso'>${currency.symbol}-${currency.name}<span class="price" data-id='${currency.id}' data-currency='${currency.name}' data-symbol='${currency.symbol}'>Price</span></span>`
+    li.innerHTML=`<img src="${currency.image}" class="flag"><span class='iso'>${currency.symbol}-${currency.name}<span class="price" data-id='${currency.id}' data-currency='${currency.name}' data-symbol='${currency.symbol}'>Price</span></span>`
   allList.appendChild(li)
   // console.log(list)
   li.addEventListener('click',(e)=>{ //console.log("waht what is two words")
@@ -44,28 +42,18 @@ function renderCurrency(currency) {//this render curreceny for the initial batch
   }
 }// this is the end of render currency
 
-function addButton(){
-  const add = document.querySelector('.add-currency-btn')
-  add.addEventListener('click',(e)=>{
-    console.log("you are at add")
-    if (add.className=="add-currency-btn"){//console.log("changed to open")
-      add.className="add-currency-btn open"
-    } else{//console.log("changed to closed")
-      add.className="add-currency-btn"
-    }
-  })//This is the end of my addButton
-}//this is the end of my button
-
 //These two varaibles are used for login and signup
 const move = document.querySelectorAll('.forms')
 const date = document.querySelector('.date')
+const add = document.querySelector('.add-currency-btn')
 
-function login(){
+function login(input){
   const log = document.querySelector('.login')
   const add = document.querySelector('.add-currency-btn')
   log.addEventListener('submit',(e)=>{//console.log("login")
     e.preventDefault()
-    const name=log.name.value; console.log(name)
+    const name= input || log.name.value; //console.log(name)
+    // console.log(name)
     fetch('http://localhost:3000/members')
     .then(res=>res.json())
     .then(users=>users.forEach(user=>{
@@ -74,7 +62,7 @@ function login(){
         move[0].style.left='-100%'
         populate(date.dataset.id)
         getPrices()
-        const welcomeMessage = document.querySelector('.usersname')
+        const welcomeMessage = document.querySelector('.username')
         welcomeMessage.innerText = user.name
         }
       }//end of if statement inside the fetch function 
@@ -84,15 +72,9 @@ function login(){
 
 function signup(){
   const signup = document.querySelector('.signup')
-  signup.addEventListener('submit',(e)=>{console.log("signup")
-    e.preventDefault()
-    console.log(signup.name.value, signup.email.value, signup.age.value, signup.creditcard.value)
-    faker={
-      name:signup.name.value, 
-      email:signup.email.value, 
-      age: signup.age.value, 
-      creditcard: signup.creditcard.value
-    }
+  signup.addEventListener('submit',(e)=>{//console.log("signup")
+    e.preventDefault() // console.log(signup.name.value, signup.email.value, signup.age.value, signup.creditcard.value)
+    faker={name:signup.name.value, email:signup.email.value, age: signup.age.value, creditcard: signup.creditcard.value}
     fetch('http://localhost:3000/members',{
       method: "POST",
       headers: {
@@ -113,29 +95,29 @@ function signup(){
   })//This is the end of my signup event
 }//Ths is the end of my login
 
-// Logout Function
-
-function logout() {
+function logout() { // Logout Function
   const dateBtn = document.querySelector('.date')
   dateBtn.addEventListener('click', e => {
     location.reload();
   })
 }
 
-function populate (id){
+function populate (id,num){
   console.log("start looking for txns")
   fetch('http://localhost:3000/members/'+id)
     .then(res=>res.json())
-    .then(user=>{
-      console.log(user.transactions, user.currencies)
-      if (user.currencies.length>=1){
-        console.log("i am dead inside")
-        user.currencies.forEach(currency=>displayBox(currency,user.transactions))
-        user.transactions.forEach(txn=>{
-          updateBalance(txn.quantity,txn.price)
-        })//end of my transaction
-        disable()
-      }
+    .then(user=>{ //console.log(user.transactions, user.currencies)
+      if (num==1){
+        displayTxns(user.currencies,user.transactions)
+      }else{
+            if (user.currencies.length>=1){//console.log("i am dead inside")
+              user.currencies.forEach(currency=>displayBox(currency,user.transactions))
+              user.transactions.forEach(txn=>{
+                updateBalance(txn.quantity,txn.price)
+              })//end of my transaction
+              disable()
+            }
+          }
     })
 }
 
@@ -150,7 +132,7 @@ function displayBox(currency,txns){ //console.log(txns)//console.log(list.includ
   txns.forEach(txn=>{// console.log(txn.currency_id==currency.id)
     if (txn.currency_id==currency.id){quantity+=txn.quantity}}) // console.log(quantity)
   }//If there are transactiosn do this
-    li.className='currency'
+  li.className='currency'
   li.id=currency.symbol
   li.dataset.currency_id=currency.id
   li.innerHTML=`<img src="${currency.image}" alt="JPY" class="flag" width="100px">
@@ -159,8 +141,8 @@ function displayBox(currency,txns){ //console.log(txns)//console.log(list.includ
       <p class='currency-name'>${currency.name}</p>
       <p class='base-currency-rate'>Price   <span class='price' data-id='${currency.id}' data-symbol='${currency.symbol}'>${currency.price}</span></p>
   </div>
-  <span class='buy'>Buy <i class="fas fa-money-bill-alt"></i></span>
-  <span class='sell'>Sell <i class="fas fa-cash-register"></i></span>
+  <span class='buy'>Buy <i id="buying" class="fas fa-money-bill-alt"></i></span>
+  <span class='sell'>Sell <i id="selling" class="fas fa-cash-register"></i></span>
   `
   }//The end of my if
 }//The end of display box
@@ -177,101 +159,39 @@ function getlist(){
 
 function disable(){//console.log("I am seeing where the disable should begin")
   const list=getlist()
-  const current = document.querySelector('.add-currency-list').querySelectorAll('li')
-  // current.length
+  const current = document.querySelector('.add-currency-list').querySelectorAll('li')// current.length
   for (item of current){//console.log(item.dataset.currency)
     if(list.includes(item.dataset.currency)){item.className="disabled";}
   }//this is the end of my for loop
-  // console.log(list)
-  // if(list.includes(li.dataset.currency)){li.className="disabled"}
 }
 
 function clickHandler() {
-  document.addEventListener('click', (e) => {
-    // console.log(e.target)
-    if (e.target.matches('.buy')) {
-      console.log("you are in buy")
-      const button = e.target
-      
-      const buysCurrency = button.previousElementSibling.childNodes[1].childNodes[0].textContent
-      const buys = button.previousElementSibling.childNodes[1].childNodes[1]
-      console.log(button.parentElement)
-      const currentBuys = parseInt(buys.textContent)
-      const id = button.parentElement.dataset.currency_id
-      const name = button.previousElementSibling.childNodes[3].textContent
-      const symbol = button.previousElementSibling.childNodes[1].childNodes[0].textContent
-      const price = parseInt(button.parentElement.querySelector('.base-currency-rate').querySelector('span').innerText)
-
-
-      // console.log(buysCurrency, buys.textContent, id)
-      // console.log(price, parseInt(date.dataset.id), parseInt(id), Date.now())
-
-      // if (buys.textContent) {
-      //   // console.log(button)
-      // } else if (buys.textContent !== "0") {
-      //   console.log("You can Sell")
-      //   button.nextElementSibling.className = "sell"
-        
-      // }
-          const options = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accepts": "application/json"
-            },
-            body: JSON.stringify({price: price, member_id: parseInt(date.dataset.id), currency_id: parseInt(id), serial: 1234567, quantity: 1000})
-          }
-      
-          fetch('http://localhost:3000/transactions/', options)
-            .then((response) => response.json())
-            .then(string => {
-              const updateBuys = currentBuys + string.quantity
-              buys.textContent = updateBuys
-              updateBalance(string.quantity,string.price)
-            })
+  document.addEventListener('click', (e) => {//console.log(e.target)
+    if (e.target.matches('.buy')|| e.target.matches('#buying')){//console.log(typeof price, typeof currency_id, typeof quantity, typeof user_id) //console.log(price, currency_id, quantity, user_id) //console.log("you are in buy")
+      const tarjet = e.target
+      post(tarjet,1000)
     }
-    else if (e.target.matches(`.sell`)) {
-      const button = e.target
-      
-      const sellCurrency = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[0].textContent
-      const sells = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[1]
-      const currentSells = parseInt(sells.textContent)
-      const updateSells = currentSells - 1000
-      const id = button.parentElement.dataset.currency_id
-      const name = button.previousElementSibling.previousElementSibling.childNodes[3].textContent
-      const symbol = button.previousElementSibling.previousElementSibling.childNodes[1].childNodes[0].textContent
-      const price = parseInt(button.parentElement.querySelector('.base-currency-rate').querySelector('span').innerText)
-      
-w
-      // console.log(sellCurrency, sells.textContent, id)
-      // console.log(price, parseInt(date.dataset.id), parseInt(id), Date.now())
-      
-      // if (sells.textContent <= "0") {
-      //   alert("You have none to sell")
-      //   // console.log(button)
-      //   // button.className = ("disabled")
-      // } else if (sells.textContent >= "0") {
-      //   console.log("Go ahead and Sell")
-      //   sells.textContent = updateSells
-      //   button.className = ("sell")
-
-      // }
-          const options = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accepts": "application/json"
-            },
-            body: JSON.stringify({price: price, member_id: parseInt(date.dataset.id), currency_id: parseInt(id), serial:1234567, quantity: -1000})
-          }
-      
-          fetch('http://localhost:3000/transactions/', options)
-            .then((response) => response.json())
-            .then(string => {
-              const updateSells = currentSells + string.quantity
-              sells.textContent = updateSells
-              updateBalance(string.quantity,string.price)
-            })
+    else if (e.target.matches(`.sell`)|| e.target.matches('#selling')) {
+      const tarjet = e.target
+      post(tarjet,-1000)
+    }
+    else if (e.target.matches('#account')){
+      remove()
+      populate(date.dataset.id,1)
+      document.querySelector('#account').style.color='red'
+      document.querySelector('#account').id='transactions'
+    }
+    else if (e.target.matches('#transactions')){
+      remove()
+      populate(date.dataset.id)
+      document.querySelector('#transactions').style.color='#edf5e1'
+      document.querySelector('#transactions').id='account'
+      document.querySelector('.balance').innerText=0
+    }
+    else if (e.target.matches('#current')){
+      if (document.querySelector('#transactions')){alert('Go Back To Purchasing Screen')}
+      if (add.className=="add-currency-btn" && document.querySelector('#account')){add.className="add-currency-btn open"}else{add.className="add-currency-btn"
+    }
     }
   })
 }
@@ -280,16 +200,14 @@ function getPrices(){
   console.log("prices working")
   fetch('https://api.exchangeratesapi.io/latest?base=USD')
   .then(res=>res.json())
-  .then(string=>{ // console.log(string.rates["CAD"])
+  .then(string=>{ //console.log(string.rates["CAD"])
     const rates = string.rates
     const list = document.querySelector('.add-currency-list').querySelectorAll('.price')
-    for (price of list){//console.log(price.dataset.symbol)
-      const sym = price.dataset.symbol
-      const id = price.dataset.id
-      const newPrice = rates[sym] 
-      price.innerText=rates[sym] // price.innerText = rates[sym].toFixed(6)
-      // console.log(id,sym,newPrice)
-        fetch(`http://localhost:3000/currencies/${id}`, { // updating the currencies
+    for (item of list){//console.log(price.dataset.symbol) // const listIten =list //ask the teachers why I am unable to assign a value after the update
+      const sym = item.dataset.symbol
+      const id = item.dataset.id
+      const newPrice = rates[sym]
+        fetch(`http://localhost:3000/currencies/${id}`,{//updating the currencies
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
@@ -298,9 +216,12 @@ function getPrices(){
           body: JSON.stringify({
           price: newPrice
         })
-        }).then(resp=>resp.json())
-        .then(string=>console.log(string))
-        //this is the end of my update currencies
+        })
+        .then(resp=>resp.json())
+        .then(string=>{
+          const item = document.querySelectorAll(`[data-symbol="${sym}"]`)
+          item.forEach(line=>(line.innerText=string.price)) // console.log(item,sym,string.price)
+        })//this updates the prices of all currencies
     }//end of my for loop
   })//end of my fetch
 }//end of my getprices
@@ -310,3 +231,51 @@ function updateBalance(quantity,price){
   const newBal = (quantity/price) + bal
   document.querySelector('.balance').innerText = newBal
 }
+
+function post(clickedObj,num){
+  const li = clickedObj.closest('li')
+  const price = parseFloat(li.querySelector('.price').innerText)
+  const currency_id= parseInt(li.dataset.currency_id)
+  const liQuantity = parseInt(li.querySelector('.balance').innerText)// console.log(typeof liQuantity)
+  const user_id= parseInt(date.dataset.id)
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accepts": "application/json"
+      },
+      body: JSON.stringify({price: price, member_id: user_id, currency_id: currency_id, serial: Math.random()*10000000, quantity: num})
+    }
+    fetch('http://localhost:3000/transactions/', options)
+      .then((response) => response.json())
+      .then(string => {
+        const updateBuys = liQuantity + string.quantity
+        li.querySelector('.balance').innerText=updateBuys //.innerText = updateBuys
+        updateBalance(string.quantity,string.price)
+      })
+}
+
+function remove(){
+  const display= document.querySelector('.currencies')
+  while(display.childElementCount>1){display.removeChild(display.lastChild)}
+}
+
+function displayTxns(currency,txns){ //console.log(txns)//console.log(list.includes(currency.symbol))//console.log(currency,txns)
+  const display= document.querySelector('.currencies')
+  for (var i = 0; i < currency.length; i++) {
+    const li = document.createElement('li')
+    const cur=currency[i]
+    const txn=txns[i]
+    const quant = (txn.quantity/txn.price)
+    // debugger
+        li.innerHTML=`<img src="${cur.image}" alt="JPY" class="flag" width="100px">
+        <div class='info'>
+            <p class="input"><span class="currency-symbol">${cur.symbol}</span><span class="balance" width='80%'>${txn.quantity}</span></p>
+            <p class='currency-name'>Net USD ${quant}</p>
+            <p class='base-currency-rate'>Date: <span>${txn.created_at}</span></p>
+            <span class='txn'>TXN:${i+1}</span>
+        </div>
+        `
+    display.appendChild(li)
+  }
+}//The end of display box
