@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('Trying a calculator')
     const railsAPI = 'http://localhost:3000/currencies/'
-    
     fetchCurrency.get('currencies',getcurrency)
-
     login()
     signup()
     logout()
@@ -13,6 +11,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 const fetchCurrency = new FetchAdapter("http://localhost:3000/") // see fetch adapter// this was fetch adapter was initiated with the base url
 const getcurrency = currencies => currencies.forEach(renderCurrency) //this is a call back function used to render currencies
+//These two varaibles are used for login and signup
+const move = document.querySelectorAll('.forms')
+const date = document.querySelector('.date')
+const add = document.querySelector('.add-currency-btn')
 
 function todaysDate() {
   let today = new Date().toLocaleDateString()
@@ -36,14 +38,8 @@ function renderCurrency(currency) {//this render curreceny for the initial batch
   }
 }// this is the end of render currency
 
-//These two varaibles are used for login and signup
-const move = document.querySelectorAll('.forms')
-const date = document.querySelector('.date')
-const add = document.querySelector('.add-currency-btn')
-
 function login(input){
   const log = document.querySelector('.login')
-  const add = document.querySelector('.add-currency-btn')
   log.addEventListener('submit',(e)=>{//console.log("login")
     e.preventDefault()
     const name= input || log.name.value; //console.log(name)
