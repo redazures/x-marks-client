@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('Trying a calculator')
     const railsAPI = 'http://localhost:3000/currencies/'
-    
     fetchCurrency.get('currencies',getcurrency)
-
     login()
     signup()
     logout()
@@ -13,6 +11,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 const fetchCurrency = new FetchAdapter("http://localhost:3000/") // see fetch adapter// this was fetch adapter was initiated with the base url
 const getcurrency = currencies => currencies.forEach(renderCurrency) //this is a call back function used to render currencies
+//These two varaibles are used for login and signup
+const move = document.querySelectorAll('.forms')
+const date = document.querySelector('.date')
+const add = document.querySelector('.add-currency-btn')
 
 function todaysDate() {
   let today = new Date().toLocaleDateString()
@@ -28,21 +30,16 @@ function renderCurrency(currency) {//this render curreceny for the initial batch
     li.innerHTML=`<img src="${currency.image}" class="flag"><span class='iso'>${currency.symbol}-${currency.name}<span class="price" data-id='${currency.id}' data-currency='${currency.name}' data-symbol='${currency.symbol}'>Price</span></span>`
   allList.appendChild(li)
   // console.log(list)
-  li.addEventListener('click',(e)=>{ //console.log("waht what is two words")
-    displayBox(currency)
+  li.addEventListener('click',(e)=>{
+    console.log("waht what is two words")
+    displayBox(currency,1)
     li.className= "disabled"
   })//This is the end of of my event listener
   }
 }// this is the end of render currency
 
-//These two varaibles are used for login and signup
-const move = document.querySelectorAll('.forms')
-const date = document.querySelector('.date')
-const add = document.querySelector('.add-currency-btn')
-
 function login(input){
   const log = document.querySelector('.login')
-  const add = document.querySelector('.add-currency-btn')
   log.addEventListener('submit',(e)=>{//console.log("login")
     e.preventDefault()
     const name= input || log.name.value; //console.log(name)
@@ -121,21 +118,23 @@ function displayBox(currency,txns){ //console.log(txns)//console.log(list.includ
   const li = document.createElement('li')
   display.appendChild(li)
   let quantity = 0
-  if (txns){txns.forEach(txn=>{if (txn.currency_id==currency.id){quantity+=txn.quantity}}) // console.log(quantity) // console.log(txn.currency_id==currency.id)
-  }//If there are transactiosn do this
+  if (txns!=1){ //if there txns is a 1 that means they are from the add-currency-page and should not be removed
+      if (txns){txns.forEach(txn=>{if (txn.currency_id==currency.id){quantity+=txn.quantity;if (quantity==0){display.removeChild(li)}}}) // console.log(quantity) // console.log(txn.currency_id==currency.id)
+  }}//If there are transactiosn and it snot from the add-currency-page
   li.className='currency'
   li.id=currency.symbol
   li.dataset.currency_id=currency.id
   li.innerHTML=`<img src="${currency.image}" alt="JPY" class="flag" width="100px">
   <div class='info'>
       <p class="input"><span class="currency-symbol">${currency.symbol}</span><span class="balance" width='80%'>${quantity}</span></p>
-      <p class='currency-name'>${currency.name}</p>
-      <p class='base-currency-rate'>Price   <span class='price' data-id='${currency.id}' data-symbol='${currency.symbol}'>${currency.price}</span></p>
+      <p class='currency-name'>${currency.name}- transact 1K</p>
+      <p class='base-currency-rate'>1 USD = <span class='price' data-id='${currency.id}' data-symbol='${currency.symbol}'>${currency.price}</span></p>
   </div>
   <span class='buy'>Buy <i id="buying" class="fas fa-money-bill-alt"></i></span>
   <span class='sell'>Sell <i id="selling" class="fas fa-cash-register"></i></span>
   `
   }//The end of my if
+  
 }//The end of display box
 
 function getlist(){
