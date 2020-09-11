@@ -81,6 +81,8 @@ function signup(){
         move[0].style.left='-100%'
         populate(date.dataset.id)
         getPrices()
+        const welcomeMessage = document.querySelector('.username')
+        welcomeMessage.innerText = user.name
         })//this should be the end of fetch
   })//This is the end of my signup event
 }//Ths is the end of my login
@@ -105,6 +107,7 @@ function populate (id,num){
               user.transactions.forEach(txn=>{
                 updateBalance(txn.quantity,txn.price)
               })//end of my transaction
+              clear()
               disable()
             }
           }
@@ -118,15 +121,16 @@ function displayBox(currency,txns){ //console.log(txns)//console.log(list.includ
   const li = document.createElement('li')
   display.appendChild(li)
   let quantity = 0
+  // debugger
   if (txns!=1){ //if there txns is a 1 that means they are from the add-currency-page and should not be removed
-      if (txns){txns.forEach(txn=>{if (txn.currency_id==currency.id){quantity+=txn.quantity;if (quantity==0){display.removeChild(li)}}}) // console.log(quantity) // console.log(txn.currency_id==currency.id)
+      if (txns){txns.forEach(txn=>{if (txn.currency_id==currency.id){quantity+=txn.quantity}}) // console.log(quantity) // console.log(txn.currency_id==currency.id)
   }}//If there are transactiosn and it snot from the add-currency-page
   li.className='currency'
   li.id=currency.symbol
   li.dataset.currency_id=currency.id
   li.innerHTML=`<img src="${currency.image}" alt="JPY" class="flag" width="100px">
   <div class='info'>
-      <p class="input"><span class="currency-symbol">${currency.symbol}</span><span class="balance" width='80%'>${quantity}</span></p>
+      <p class="input"><span class="currency-symbol">${currency.symbol}</span><span class="balance" data-sym='${currency.symbol}' width='80%'>${quantity}</span></p>
       <p class='currency-name'>${currency.name}- transact 1K</p>
       <p class='base-currency-rate'>1 USD = <span class='price' data-id='${currency.id}' data-symbol='${currency.symbol}'>${currency.price}</span></p>
   </div>
@@ -210,7 +214,8 @@ function getPrices(){
         .then(resp=>resp.json())
         .then(string=>{
           const item = document.querySelectorAll(`[data-symbol="${sym}"]`)
-          item.forEach(line=>(line.innerText=string.price)) // console.log(item,sym,string.price)
+          item.forEach(line=>(line.innerText=string.price))
+          // clear() // console.log(item,sym,string.price)
         })//this updates the prices of all currencies
     }//end of my for loop
   })//end of my fetch
@@ -269,3 +274,16 @@ function displayTxns(currency,txns){ //console.log(txns)//console.log(list.inclu
     display.appendChild(li)
   }
 }//The end of display box
+
+function clear(){
+  const list = document.querySelectorAll('.balance')
+  const display= document.querySelector('.currencies')
+  list.forEach(item=>{
+    // debugger
+    const li = item.parentElement.parentElement.parentElement
+    const id = item.dataset.sym
+    console.log(list, li)
+    if (item.innerText==0 && id!="USD"){display.removeChild(li)}
+  })
+  
+}
